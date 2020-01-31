@@ -3,11 +3,14 @@ import java.util.ArrayList;
 import java.util.Collections.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
+
 
 public class BreakingVigenere {	
 	// INFO: CHECK THE Ñ ENE
 	public static final String ALPHABET_STR = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-	public static final HashMap<Character, Float> alphabetFrecuencyModel = new HashMap<Character, Float>(){
+	
+	public static final HashMap<Character, Float> ALPHABET_FRECUENCY_MODEL= new HashMap<Character, Float>(){
 		{
 			put('E', 0.1365F);
 			put('A', 0.11797F);
@@ -138,9 +141,30 @@ public class BreakingVigenere {
 			messages.add(new TextoMonoalfabetico(message));
 		}
 		
+		// Setear claves para los mensajes de la misma columna con los 3 mejores, (El ultimo tiene mayor correlacion xd)
+		int n = 3;  
+		for(int i=0; i < messages.size(); ++i) {
+			HashMap<Integer, Float> corrs =  messages.get(i).getCorrelationTableWithAlphabet(ALPHABET_STR, ALPHABET_FRECUENCY_MODEL);
+			int j=0;
+			for(Entry<Integer, Float> entry: corrs.entrySet()) {
+				if(j>=corrs.size()-n) {
+					messages.get(i).getKeys().add(entry.getKey());
+				}
+				j++;
+			}
+		}
 		
+		for(int i=0; i < n; ++i) {
+			String tempKey = "";
+			for(int j=0; j < messages.size(); ++j) {
+				int keyIndex = messages.get(j).getKeys().get(i);
+				tempKey += ALPHABET_STR.charAt(keyIndex);
+			}
+			keys.add(tempKey);
+		}
+		System.out.println(messages);
 		
-		return blocks.toArray(new String[blocks.size()]);
+		return keys.toArray(new String[keys.size()]);
 	}
 	
 	
