@@ -3,17 +3,52 @@ import java.util.ArrayList;
 import java.util.Collections.*;
 import java.util.HashMap;
 import java.util.List;
-public class BreakingVigenere {
-	public static final String[] SPANISH_ALPHABET = new String[] {
-			"A","B","C","D","E","F","G","H","I","J","K","L","M","N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z"
-	};
+
+public class BreakingVigenere {	
+	// INFO: CHECK THE Ñ ENE
+	public static final String ALPHABET_STR = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+	public static final HashMap<Character, Float> alphabetFrecuencyModel = new HashMap<Character, Float>(){
+		{
+			put('E', 0.1365F);
+			put('A', 0.11797F);
+			put('O', 0.09195F);
+			put('S', 0.07983F);
+			put('R', 0.06696F);
+			put('N', 0.0669F);
+			put('I', 0.0686F);
+			put('L', 0.0527F);
+			put('D', 0.0519F);
+			put('C', 0.04919F);
+			put('T', 0.04802F);
+			put('P', 0.03445F);
+			put('U', 0.03996F);
+			put('M', 0.02925F);
+			put('B', 0.01F);
+			put('F', 0.00953F);
+			put('V', 0.00693F);
+			put('Q', 0.00875F);
+			put('G', 0.00943F);
+			put('H', 0.00585F);
+			put('J', 0.00272F);
+			put('Ñ', 0.00074F);
+			put('K', 0.00022F);
+			put('W', 0.00019F);
+			put('X', 0.0183F);
+			put('Y', 0.0523F);
+			put('Z', 0.00291F);
+		}
+	}; 
 	
-	public static final String SPANISH_ALPHABET_STR = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-	
+	/** Encrypts the @text parameter using the @key
+	 * @param text
+	 * @param key
+	 * @return an encrypted String
+	 */
 	public static String encrypt(String text, String key){
-		System.out.println("Alfabeto "+ SPANISH_ALPHABET_STR);
+		
+		System.out.println("Alfabeto "+ ALPHABET_STR);
 		String encrypted = "";
-		int L_ALPHABET = SPANISH_ALPHABET_STR.length();
+		int L_ALPHABET = ALPHABET_STR.length();
 		int xi;
 		int ki;
 		
@@ -25,27 +60,107 @@ public class BreakingVigenere {
 		
 		for(int i=0; i < text.length(); ++i) {
 			/* E(xi) = (Xi+Ki) mod L
-			 * En términos matemáticos puede expresarse la función de cifrado como: E ( X i ) = ( X i + K i ) mod   L 
+			 * En tï¿½rminos matemï¿½ticos puede expresarse la funciï¿½n de cifrado como: E ( X i ) = ( X i + K i ) mod   L 
 			Donde 
-			Xi es la letra en la posición i del texto a cifrar, 
-			Ki es el carácter de la clave correspondiente a Xi, pues se encuentran en la misma posición, y 
-			L es el tamaño del alfabeto. En este caso L = 27  
+			Xi es la letra en la posiciï¿½n i del texto a cifrar, 
+			Ki es el carï¿½cter de la clave correspondiente a Xi, pues se encuentran en la misma posiciï¿½n, y 
+			L es el tamaï¿½o del alfabeto. En este caso L = 27  
 			* */
-			xi = SPANISH_ALPHABET_STR.indexOf(text.charAt(i));
-			ki = SPANISH_ALPHABET_STR.indexOf(key.charAt(textKeyPairsIndex.get(i)));
-			encrypted += SPANISH_ALPHABET[(xi+ki)%L_ALPHABET];
+			xi = ALPHABET_STR.indexOf(text.charAt(i));
+			ki = ALPHABET_STR.indexOf(key.charAt(textKeyPairsIndex.get(i)));
+			encrypted += ALPHABET_STR.charAt((xi+ki)%L_ALPHABET);
 		}
 		return encrypted;
 	}
 	
+	
+	/**Decrypts a text using the key parameter
+	 * @param encryptedText
+	 * @param key
+	 * @return
+	 */
+	public static String decrypt(String encryptedText, String key) {
+		String plainText = "";
+
+		// Cuando (Ci - Ki) < 0
+		int L_ALPHABET = ALPHABET_STR.length();
+		int ci;
+		int ki;
+		
+		HashMap<Integer, Integer> textKeyPairsIndex = new HashMap<Integer, Integer>();
+		for(int i=0,j=0; i < encryptedText.length(); ++i) {
+			textKeyPairsIndex.put(i, j);
+			j = (j==key.length()-1? 0: ++j);
+		}
+		
+		for(int i=0; i < encryptedText.length(); ++i) {
+			ci = ALPHABET_STR.indexOf(encryptedText.charAt(i));
+			ki = ALPHABET_STR.indexOf(key.charAt(textKeyPairsIndex.get(i)));
+			// Cuando (Ci - Ki) >= 0 
+			if(ci-ki>=0) {
+				plainText += ALPHABET_STR.charAt((ci-ki)%L_ALPHABET);
+			}else {
+				plainText += ALPHABET_STR.charAt((ci-ki+L_ALPHABET)%L_ALPHABET);				
+			}
+		}
+		
+		return plainText;
+	}
+
+	
+	/**Cracks the encrypted text and returns the possible keys
+	 * @param text
+	 * @param keylen
+	 * @return the possible keys
+	 */
 	public static String[] crack(String text, int keylen) {
 		List<String> keys = new ArrayList<String>();
+		// Create bigrams with those that are repeated in the text
+		List<String> blocks = new ArrayList<String>();
+		for(int i=0; i < text.length(); i += keylen) {
+			int upper = (i+keylen > text.length() ? text.length(): i+keylen);
+			blocks.add(text.substring(i, upper));
+		}
+		
+		// Each column is encyphered with the same key so it's a one-alphabet subtitution 
+		// thus it can be attacked with frecuency analysis
+		// Extract all the columns to analyse with the frecuency
+		List<TextoMonoalfabetico> messages = new ArrayList<TextoMonoalfabetico>();
+		for(int i=0; i < keylen; ++i) {
+			String message = "";
+			for(int j=0; j < blocks.size(); ++j) {
+				try {
+					message += blocks.get(j).charAt(i);
+				} catch (IndexOutOfBoundsException e) {
+					
+				}
+			}
+			messages.add(new TextoMonoalfabetico(message));
+		}
 		
 		
 		
-		return (String[]) keys.toArray();
+		return blocks.toArray(new String[blocks.size()]);
 	}
 	
+	
+	public static int getKeyLen(String encryptedText) {
+		int keylen = 0;
+		List<String> bigrams = new ArrayList<String>();
+		for(int i=0,j=2; i < encryptedText.length(); j+=2,++i) {
+			
+		}
+		
+		return keylen;
+	}
+	
+	/**Verifies the if the encryption process is correct, comparing the plain text with the encrypted 
+	 * message after it was decrypted.
+	 * @param plain
+	 * @param encruypted
+	 * @param key
+	 * @return
+	 */
 	public static boolean verify(String plain, String encruypted, String key) {
 		boolean match = false;
 		
