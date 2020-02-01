@@ -39,7 +39,7 @@ public class TextoMonoalfabetico {
 	}
 	
 	public HashMap<Integer, Float> getCorrelationTableWithAlphabet(String alphabet, HashMap<Character, Float> alphabetFrecuencyModel){
-		System.out.println("Longitud alphabeto "+alphabet.length()+" longitud corpus modelo "+alphabetFrecuencyModel.size());
+		//System.out.println("Longitud alphabeto "+alphabet.length()+" longitud corpus modelo "+alphabetFrecuencyModel.size());
 		HashMap<Integer, Float> correlations = new HashMap<Integer, Float>();
 		char[] lettersSet = this.getLettersSet();
 		for(int i=0; i < alphabet.length(); ++i) {
