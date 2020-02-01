@@ -15,6 +15,7 @@ public class TextoMonoalfabetico {
 	private String text;
 	private HashMap<Character, Float> frecuencias = new HashMap<Character, Float>();
 	private List<Integer> keys = new ArrayList<Integer>(); // Lista de claves ordenada de menor a mayor proba de ser la key
+	private List<Character> keysStr = new ArrayList<Character>();
 	public TextoMonoalfabetico() {
 		
 	}
@@ -23,6 +24,15 @@ public class TextoMonoalfabetico {
 		this.text = text;
 		this.setFrecuencias();
 	}
+	
+	public List<Character> getKeysStr(String alphabet){
+		keysStr.clear();
+		for(int i=0; i < keys.size(); ++i) {
+			keysStr.add(alphabet.charAt(keys.get(i)));
+		}
+		return this.keysStr;
+	}
+	
 	public void setFrecuencias() {
 		HashMap<Character, Integer> repeticiones = new HashMap<Character, Integer>();
 		for(int i=0; i < this.text.length(); ++i) {

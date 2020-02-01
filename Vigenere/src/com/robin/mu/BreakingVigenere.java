@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-
 public class BreakingVigenere {	
 	// INFO: CHECK THE Ñ ENE
 	public static final String ALPHABET_STR = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
@@ -171,13 +170,44 @@ public class BreakingVigenere {
 		}
 		System.out.println(messages);
 		
+		// Keys combined
+		
+		keys = getKeysCombined(keys);
 		return keys.toArray(new String[keys.size()]);
 	}
 	
-	public List<String> getKeysCombined() {
+	public static List<String> getKeysCombined(List<String> keysLineByLine) {
 		List<String> combinados = new ArrayList<String>();
-		
-		
+		// Combine taking the first letter of each key with all the others
+		List<String> columnas = new ArrayList<String>();
+		for(int j=0; j < keysLineByLine.get(0).length(); ++j) {
+			String columna = "";
+			for(int i=0; i < keysLineByLine.size();  ++i) {
+				columna += keysLineByLine.get(i).charAt(j);
+			}
+			columnas.add(columna);
+		}
+		combinados.add(columnas.get(0));
+		columnas.remove(0);
+		boolean expandido = false;
+		int colIndex = 0;
+		List<String> strExpanded = new ArrayList<String>();
+		while(!expandido) {
+			for(String expandedStr: combinados) {
+				for(int c=0; c < expandedStr.length(); ++c) {
+					String key = "";
+					for(int i=0; i < columnas.get(colIndex).length(); ++i) {
+						key += expandedStr.charAt(c)+""+columnas.get(colIndex).charAt(i);
+						strExpanded.add(key);
+						key="";
+					}
+					
+				}
+				colIndex++;
+			}
+			combinados = strExpanded;
+			strExpanded.clear();
+		}
 		return combinados;
 	}
 	
