@@ -1,5 +1,6 @@
 package com.robin.mu;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections.*;
 import java.util.HashMap;
 import java.util.List;
@@ -147,7 +148,7 @@ public class BreakingVigenere {
 		}
 		
 		// Setear claves para los mensajes de la misma columna con los n mejores, (El ultimo tiene mayor correlacion xd)
-		int n = 10;  
+		int n = 5;  
 		for(int i=0; i < messages.size(); ++i) {
 			// The correlation comes ordered from lest to greater
 			HashMap<Integer, Float> corrs =  messages.get(i).getCorrelationTableWithAlphabet(ALPHABET_STR, ALPHABET_FRECUENCY_MODEL);
@@ -187,26 +188,25 @@ public class BreakingVigenere {
 			}
 			columnas.add(columna);
 		}
-		combinados.add(columnas.get(0));
+		combinados.addAll(Arrays.asList(columnas.get(0).split("")));
 		columnas.remove(0);
 		boolean expandido = false;
 		int colIndex = 0;
 		List<String> strExpanded = new ArrayList<String>();
 		while(!expandido) {
 			for(String expandedStr: combinados) {
-				for(int c=0; c < expandedStr.length(); ++c) {
 					String key = "";
 					for(int i=0; i < columnas.get(colIndex).length(); ++i) {
-						key += expandedStr.charAt(c)+""+columnas.get(colIndex).charAt(i);
+						key += expandedStr+""+columnas.get(colIndex).charAt(i);
 						strExpanded.add(key);
 						key="";
 					}
-					
-				}
-				colIndex++;
 			}
-			combinados = strExpanded;
+			colIndex++;
+			combinados = (List<String>) ((ArrayList<String>)strExpanded).clone();
 			strExpanded.clear();
+			
+			expandido = (colIndex > columnas.size()-1? true: false);
 		}
 		return combinados;
 	}
