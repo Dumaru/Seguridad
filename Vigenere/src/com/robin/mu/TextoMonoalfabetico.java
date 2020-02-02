@@ -126,9 +126,6 @@ public class TextoMonoalfabetico {
 	public void setKeys(List<Integer> keys) {
 		this.keys = keys;
 	}
-
-	
-	
 	
 	@Override
 	public String toString() {

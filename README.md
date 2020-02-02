@@ -15,3 +15,5 @@ Once the length of the keyword is known, the ciphertext can be broken up into th
 
 Once you know the length of the keyword, you can write out the ciphertext is that many columns. For example, if the keyword is 6 letters long, write the ciphertext in 6 columns. Now the letters in each column have all been encoded using the same keyword letter, and thus the same shift. So a bit of frequency analysis will help us with each individual column.
 
+## Palabras mas frecuentes espaol
+[RAE CORPUS](http://corpus.rae.es/lfrecuencias.html)

@@ -1,14 +1,18 @@
 package com.robin.mu;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Collections.*;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
 public class BreakingVigenere {	
 	// INFO: CHECK THE Ñ ENE
-	public static final String ALPHABET_STR = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+	//public static final String ALPHABET_STR = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+	public static final String ALPHABET_STR = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
 	public static final HashMap<Character, Float> ALPHABET_FRECUENCY_MODEL= new HashMap<Character, Float>(){
 		{
@@ -33,7 +37,7 @@ public class BreakingVigenere {
 			put('G', 0.00943F);
 			put('H', 0.00585F);
 			put('J', 0.00272F);
-			put('Ñ', 0.00074F);
+			//put('Ñ', 0.00074F);
 			put('K', 0.00022F);
 			put('W', 0.00019F);
 			put('X', 0.0183F);
@@ -174,9 +178,61 @@ public class BreakingVigenere {
 		// Keys combined
 		
 		keys = getKeysCombined(keys);
+		
+		// Search for the better keys within all the keys with their respective decrypted messages
+		HashMap<String, String> decryptedMessages = new HashMap<String, String>();
+		for(int i=0; i < keys.size(); ++i) {
+			decryptedMessages.put(keys.get(i), decrypt(textUpper, keys.get(i)));
+		}
+		keys = ordenarKeys(decryptedMessages);
 		return keys.toArray(new String[keys.size()]);
 	}
 	
+	public static List<String> ordenarKeys(HashMap<String, String> keys_plan){
+		HashMap<String, Integer> clavesMejor = new HashMap<String, Integer>();
+		CorpusHandler corpusHandler = new CorpusHandler("500_formas_Spanish.txt");
+		corpusHandler.setCommonWords();
+		
+		// Key-Plain text
+		for(Entry<String, String> entryK_E : keys_plan.entrySet()) {
+			int wordCounter = 0;
+			for(String word: corpusHandler.getCommonWords()) {
+				wordCounter += (entryK_E.getValue().contains(word)?1:0);
+			}
+			clavesMejor.put(entryK_E.getKey(), wordCounter);
+		}
+		
+		// Ordenamiento
+		Comparator<Entry<String, Integer>> valueComparator = new Comparator<Entry<String, Integer>>() {
+		            
+		            @Override
+		            public int compare(Entry<String, Integer> e1, Entry<String, Integer> e2) {
+		                Integer v1 = e1.getValue();
+		                Integer v2 = e2.getValue();
+		                return v1.compareTo(v2);
+		            }
+		};
+		// Llenar lista de entries del map
+		List<Entry<String, Integer>> listOfEntries = new ArrayList<Entry<String, Integer>>();
+		for(Entry<String, Integer> entry: clavesMejor.entrySet()) {
+			listOfEntries.add(entry);
+		}
+		// Uses the comparator to sort the all the entries
+		Collections.sort(listOfEntries, valueComparator);
+		LinkedHashMap<String, Integer> sortedByValue = new LinkedHashMap<String, Integer>(listOfEntries.size());
+        
+        // copying entries from List to Map
+        for(Entry<String, Integer> entry : listOfEntries){
+            sortedByValue.put(entry.getKey(), entry.getValue());
+        }
+        
+		//return Arrays.asList(clavesMejor.keySet().toArray(new String[clavesMejor.size()]));
+        List<String> lista = Arrays.asList(sortedByValue.keySet().toArray(new String[clavesMejor.size()]));
+        Collections.reverse(lista);
+        int keysAmount = 125;
+        
+        return lista.subList(0, keysAmount);
+	}
 	public static List<String> getKeysCombined(List<String> keysLineByLine) {
 		List<String> combinados = new ArrayList<String>();
 		// Combine taking the first letter of each key with all the others
@@ -226,15 +282,15 @@ public class BreakingVigenere {
 	 * @param plain
 	 * @param encruypted
 	 * @param key
-	 * @return
+	 * @return true if there is a match between the plan and decrypted messages with certain key
 	 */
 	public static boolean verify(String plain, String encruypted, String key) {
 		String plainUpper = plain.toUpperCase();
 		String encryptedUpper = encruypted.toUpperCase();
-		String keyUpper = key.toUpperCase();
-		boolean match = false;
-		
-		
-		return match;
+		String keyUpper = key.toUpperCase();		
+		String decrypted = decrypt(encryptedUpper, keyUpper);
+		boolean iguales = plainUpper.strip().equals(decrypted.strip());
+		System.out.printf("Key:%s%nPlano:%s%nDesencriptado:%s",keyUpper, plain.toUpperCase(), decrypted.toUpperCase());
+		return iguales;
 	}
 }

@@ -1,20 +1,20 @@
 package com.robin.mu;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ValoremeElEsfuerzo {
 
 	public static void main(String[] args) {
 		//Testing
-		/*
-		String encryptedMessage = BreakingVigenere.encrypt("ESTEESUNMENSAJEMUYSECRETOPORFAVORNOMEMIRES", "LOUP");
-		String decryptedMessage = BreakingVigenere.decrypt(encryptedMessage, "LOUP");
-		System.out.printf("\nMain:\nEncrypted %s%nPlain decrypted %s%n", encryptedMessage, decryptedMessage);
+//		String plainT = "sehaencontradoafaceapplaaplicacindetransformacindefotografasbasadaenlainteligenciaartificialquerecientementesevolviviralporsufiltrodeedadperollegalostitularesporsupolmicapolticadeprivacidadquerecopilalalistadetusamigosdefacebooksinningunaraznelfaceappdefabricacinrusahaexistidodesdelaprimaveradeperosehavistoafectadoporlasredessocialesenlasltimassemanasyaquemillonesdepersonasdescargaronlaaplicacinparavercmoseverancuandoseanmayoresomenoresointercambiengneroslaaplicacintambincontieneunafuncinquepermitealosusuariosdescargaryeditarfotosdesuscuentasdefacebookquesolofuncionacuandounusuariopermitequefaceappaccedaalacuentaderedessocialesatravsdelaopcininiciarsesinconfacebook";
+//		String encryptedT = "emusitowalvgpwnxeiqichpgmxyaggoqavizdiakjudunumtpmsgxusznxeynifshgqvysmtfmyakkzkvsexfqsagomtdmixqkvwrzqurfxkemigpbudvjerbwekylutgjsjqmqshvqzbdpksiygwzubhdexqacgvygxbdqooicgpzuknvivdqisgopiqiykdmpgtoxiyspoebnvizganemmaaqwjgomogsqeqafmtscasvglvrdjgomnhtjqnntvooiparxganzekjqflmjalrkhkxicjmsmdrjejqxrjsyqpnnmyfwnxiifiqgtudtnkvkpmfksiuiywwkztnkpzuunkwkyiaswemyhwqoxtbfiypmcwvyavnkhkeknjkgdwadegbtvueiuvcsvghmeuquemiwvgzkhsrjaarsrsmgbjiyaurfsxqabarzqzpsqhumayrkdwfdegbtvueiuvgsqhuvpgrzumawytmnhfgozyhwtkduvligxwfmwamzvgwjqapsvmmzlwhofiexszaaqwwaekhwrzmaqwjgomogsqccrksranhfgoavnuygzlbmraecnjmubmeemzqyhwjgomnhtgokrvegxipmitfiqwvkpmfksiuiywwgfznnwjqtngtiuvvfmiuiekiyuvpgrlmkrtsuw";
+//		String encryptedMessage = BreakingVigenere.encrypt(plainT, "MINSEG");
+//		String decryptedMessage = BreakingVigenere.decrypt(encryptedMessage, "MINSEG");
+//		System.out.printf("\n\nMain:\nEncryptedT:%s%nEncrypted:%s%nPlainT:%s%nPlain:%s%n", encryptedT, encryptedMessage, plainT,decryptedMessage);
+
 		
-		// Crack stuff
-		System.out.printf("\nMain:\nEncrypted %s%nPlain %s%n", encrypted, decryptedMessage);
-		System.out.println("Keys "+Arrays.deepToString(keys));
-		*/
 		String plain = "sehaencontradoafaceapplaaplicacindetransformacindefotografasbasadaenlainteligenciaartificialquerecientementesevolviviralporsufiltrodeedadperollegalostitularesporsupolmicapolticadeprivacidadquerecopilalalistadetusamigosdefacebooksinningunaraznelfaceappdefabricacinrusahaexistidodesdelaprimaveradeperosehavistoafectadoporlasredessocialesenlasltimassemanasyaquemillonesdepersonasdescargaronlaaplicacinparavercmoseverancuandoseanmayoresomenoresointercambiengneroslaaplicacintambincontieneunafuncinquepermitealosusuariosdescargaryeditarfotosdesuscuentasdefacebookquesolofuncionacuandounusuariopermitequefaceappaccedaalacuentaderedessocialesatravsdelaopcininiciarsesinconfacebook";
 		String encrypted = "emusitowalvgpwnxeiqichpgmxyaggoqavizdiakjudunumtpmsgxusznxeynifshgqvysmtfmyakkzkvsexfqsagomtdmixqkvwrzqurfxkemigpbudvjerbwekylutgjsjqmqshvqzbdpksiygwzubhdexqacgvygxbdqooicgpzuknvivdqisgopiqiykdmpgtoxiyspoebnvizganemmaaqwjgomogsqeqafmtscasvglvrdjgomnhtjqnntvooiparxganzekjqflmjalrkhkxicjmsmdrjejqxrjsyqpnnmyfwnxiifiqgtudtnkvkpmfksiuiywwkztnkpzuunkwkyiaswemyhwqoxtbfiypmcwvyavnkhkeknjkgdwadegbtvueiuvcsvghmeuquemiwvgzkhsrjaarsrsmgbjiyaurfsxqabarzqzpsqhumayrkdwfdegbtvueiuvgsqhuvpgrzumawytmnhfgozyhwtkduvligxwfmwamzvgwjqapsvmmzlwhofiexszaaqwwaekhwrzmaqwjgomogsqccrksranhfgoavnuygzlbmraecnjmubmeemzqyhwjgomnhtgokrvegxipmitfiqwvkpmfksiuiywwgfznnwjqtngtiuvvfmiuiekiyuvpgrlmkrtsuw";
 		
@@ -27,6 +27,17 @@ public class ValoremeElEsfuerzo {
 		System.out.println(java.util.Arrays.deepToString(keys));
 		System.out.println("ROTO, LO ROMPI");
 		System.out.println(solucionado);
+		
+		String actualKey = "";
+		for(String key: keys) {
+			if(BreakingVigenere.verify(plain, encrypted, key) == true) {
+				actualKey = key;
+				break;
+			}
+		}
+		System.out.println("\nTHIS IS THEEE KEY:"+actualKey);
+		
+		//System.out.println("Coordina "+BreakingVigenere.verify(plain, encruypted, key));
 	}
 
 }
