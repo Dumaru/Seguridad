@@ -164,6 +164,7 @@ public class BreakingVigenere {
 				j++;
 			}
 		}
+		
 		// Sets the keys with the lengt of the messages that is the lenght of the key because they are the columns 
 		for(int i=0; i < n; ++i) {
 			String tempKey = "";

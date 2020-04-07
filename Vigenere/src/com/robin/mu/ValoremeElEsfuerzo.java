@@ -16,18 +16,24 @@ public class ValoremeElEsfuerzo {
 
 		
 		String plain = "sehaencontradoafaceapplaaplicacindetransformacindefotografasbasadaenlainteligenciaartificialquerecientementesevolviviralporsufiltrodeedadperollegalostitularesporsupolmicapolticadeprivacidadquerecopilalalistadetusamigosdefacebooksinningunaraznelfaceappdefabricacinrusahaexistidodesdelaprimaveradeperosehavistoafectadoporlasredessocialesenlasltimassemanasyaquemillonesdepersonasdescargaronlaaplicacinparavercmoseverancuandoseanmayoresomenoresointercambiengneroslaaplicacintambincontieneunafuncinquepermitealosusuariosdescargaryeditarfotosdesuscuentasdefacebookquesolofuncionacuandounusuariopermitequefaceappaccedaalacuentaderedessocialesatravsdelaopcininiciarsesinconfacebook";
-		String encrypted = "emusitowalvgpwnxeiqichpgmxyaggoqavizdiakjudunumtpmsgxusznxeynifshgqvysmtfmyakkzkvsexfqsagomtdmixqkvwrzqurfxkemigpbudvjerbwekylutgjsjqmqshvqzbdpksiygwzubhdexqacgvygxbdqooicgpzuknvivdqisgopiqiykdmpgtoxiyspoebnvizganemmaaqwjgomogsqeqafmtscasvglvrdjgomnhtjqnntvooiparxganzekjqflmjalrkhkxicjmsmdrjejqxrjsyqpnnmyfwnxiifiqgtudtnkvkpmfksiuiywwkztnkpzuunkwkyiaswemyhwqoxtbfiypmcwvyavnkhkeknjkgdwadegbtvueiuvcsvghmeuquemiwvgzkhsrjaarsrsmgbjiyaurfsxqabarzqzpsqhumayrkdwfdegbtvueiuvgsqhuvpgrzumawytmnhfgozyhwtkduvligxwfmwamzvgwjqapsvmmzlwhofiexszaaqwwaekhwrzmaqwjgomogsqccrksranhfgoavnuygzlbmraecnjmubmeemzqyhwjgomnhtgokrvegxipmitfiqwvkpmfksiuiywwgfznnwjqtngtiuvvfmiuiekiyuvpgrlmkrtsuw";
+		String encrypted = "eogonfrekqhjlbxlioadcveienkdfzemqvmjmqthlfbjcpyhhpufewadqoixsdwdrioftdqtsqgtyjnpupmxpskpsxyzqsexaccpsxemtdxtocuhvaaofrwzsmgqxtsnqymrifpwsxswkhriodqpsxesgoehippdffnfpwvjsjqtyjcpolesnvprhjemnrwqlbodffnvgvxwabvhrhippsswqvgvmjmqthtjrncqihibkqqtvjnbrzndcveqibfhwzcbulxfaqcuihibsxisorwhvnatceiwnbfdhjlnwqhtorwhpjtfolefamirsjrbwqgfrberpjrnkwesopwqhnaegyiwaoqrislbjrvfdfndwnetvdgzaofrqfsdcoistbddiqspnbxtdbndjfmjnlexesgiylibddhjlpudviifpwixrbarwxomcuixeovuiqatiuyjsbuseweegvhjlbcqgnaocfexabarwfljconfrekqhnsqwhwyoblxkfrdqqiqbbnrrsufxruzengkegibthkflbfrqntjqrqnsqtlqtstodwrazquixqvgbstnpohpthbdlesdfldhttpedvjnuqgeqancqesazvhrnahcqexdfndreaswqsxgpnsixsvpdzjzgwhvfenrhgjaekvtfrbthpgamqqgtnutdiqmvtruzetgsewacchpoasflriemcfeqlfgfeiawgcpfnaceeratapexfvguxjhbuwevufirpueferrjlccosslbednfdfjhvwankhryatfhpfbvgostdvtdryevprwnntvdryetohuzeegsewamkceioprhvtpbudhflbrumresclqurfulssdfnhwyrvgqhtqvgkegibjhgmomcfeoabngixpmqpewsfudpncptumjneqdvjcpihvyoecvpfsiguvfmjgqxfsrwhwjhbdlesrfrdvyieqsswemuxiqoppruzeskdpqewcuqjuoceyjnbthkfnjpd";
 		
 		String encryptedMessage = BreakingVigenere.encrypt(plain, "MINSEG");
 		String decryptedMessage = BreakingVigenere.decrypt(encryptedMessage, "MINSEG");
 		System.out.printf("\nMain:\nEncrypted:%s %nDecrypted:%s%n", encrypted, decryptedMessage);
 		
-		String[] keys = BreakingVigenere.crack(encrypted, 6);
-		String solucionado = BreakingVigenere.decrypt(encrypted, keys[keys.length-1]);
-		System.out.println(java.util.Arrays.deepToString(keys));
-		System.out.println("ROTO, LO ROMPI");
-		System.out.println(solucionado);
 		
+		// Obtiene las claves posibles
+		String[] keys = BreakingVigenere.crack(encrypted, 6);
+		
+		String solucionado = BreakingVigenere.decrypt(encrypted, keys[keys.length-1]);
+		System.out.println("\nClaves\n");
+		System.out.println(java.util.Arrays.deepToString(keys));
+		System.out.println("\nClaves\n");
+		//System.out.println("ROTO, LO ROMPI");
+		//System.out.println(solucionado);
+		
+		/*
 		String actualKey = "";
 		for(String key: keys) {
 			if(BreakingVigenere.verify(plain, encrypted, key) == true) {
@@ -35,7 +41,8 @@ public class ValoremeElEsfuerzo {
 				break;
 			}
 		}
-		System.out.println("\nTHIS IS THEEE KEY:"+actualKey);
+		*/
+		//System.out.println("\n\nTHIS IS THEEE KEY:"+actualKey);
 		
 		//System.out.println("Coordina "+BreakingVigenere.verify(plain, encruypted, key));
 	}
