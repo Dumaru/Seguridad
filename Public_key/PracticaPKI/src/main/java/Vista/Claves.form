@@ -160,6 +160,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Crear"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnCrearClavesActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -272,11 +275,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnCarpetaCifrarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="BtnCarpetaDestinoCifrado">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar ..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnCarpetaDestinoCifradoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="BtnCifrar">
               <Properties>
@@ -285,6 +294,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cifrar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnCifrarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -403,6 +415,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnBuscarArchivoCifradoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="BtnDescifrar">
               <Properties>
@@ -411,6 +426,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Descifrar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnDescifrarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

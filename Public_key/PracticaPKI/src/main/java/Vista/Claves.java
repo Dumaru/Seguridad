@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.lang.model.SourceVersion;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -102,6 +103,11 @@ public class Claves extends javax.swing.JFrame {
 
         BtnCrearClaves.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BtnCrearClaves.setText("Crear");
+        BtnCrearClaves.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCrearClavesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -174,11 +180,26 @@ public class Claves extends javax.swing.JFrame {
         });
 
         BtnCarpetaCifrar.setText("Buscar...");
+        BtnCarpetaCifrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCarpetaCifrarActionPerformed(evt);
+            }
+        });
 
         BtnCarpetaDestinoCifrado.setText("Buscar ...");
+        BtnCarpetaDestinoCifrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCarpetaDestinoCifradoActionPerformed(evt);
+            }
+        });
 
         BtnCifrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BtnCifrar.setText("Cifrar");
+        BtnCifrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCifrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -255,9 +276,19 @@ public class Claves extends javax.swing.JFrame {
         });
 
         BtnBuscarArchivoCifrado.setText("Buscar...");
+        BtnBuscarArchivoCifrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarArchivoCifradoActionPerformed(evt);
+            }
+        });
 
         BtnDescifrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BtnDescifrar.setText("Descifrar");
+        BtnDescifrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnDescifrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -341,11 +372,14 @@ public class Claves extends javax.swing.JFrame {
         PathClaves.setText(archivo.getAbsolutePath());
             
         }
-        if(this.TFieldNombreClavePrivada.getText() != "" && this.TFieldNombreClavePublica.getText() != "")
+        if(this.TFieldNombreClavePrivada.getText() == "" && this.TFieldNombreClavePublica.getText() == "")
         {
+  
+        }
+        else
+        {
+        this.BtnCrearClaves.setVisible(true);
         
-            this.BtnCrearClaves.setVisible(true);
-            
         }
         
         
@@ -361,7 +395,15 @@ public class Claves extends javax.swing.JFrame {
     }//GEN-LAST:event_PathClavesActionPerformed
 
     private void BtnCarpetaClavePubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaClavePubActionPerformed
-        // TODO add your handling code here:
+       
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(this);
+        File archivo = file.getSelectedFile();
+        if(archivo != null){
+        PathClavePub.setText(archivo.getAbsolutePath());
+            
+        }
+   
     }//GEN-LAST:event_BtnCarpetaClavePubActionPerformed
 
     private void PathArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PathArchivoActionPerformed
@@ -369,12 +411,128 @@ public class Claves extends javax.swing.JFrame {
     }//GEN-LAST:event_PathArchivoActionPerformed
 
     private void BtnCarpetaDestinoDescifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaDestinoDescifradoActionPerformed
-        // TODO add your handling code here:
+        
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(this);
+        File archivo = file.getSelectedFile();
+        if(archivo != null){
+        PathArchivoDescifrado.setText(archivo.getAbsolutePath());
+        
+        }
+  
     }//GEN-LAST:event_BtnCarpetaDestinoDescifradoActionPerformed
 
     private void BtnBuscarClavePrivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarClavePrivActionPerformed
-        // TODO add your handling code here:
+         JFileChooser file = new JFileChooser();
+        file.showOpenDialog(this);
+        File archivo = file.getSelectedFile();
+        if(archivo != null){
+        PathClavePriv.setText(archivo.getAbsolutePath());
+        
+        }
+        
     }//GEN-LAST:event_BtnBuscarClavePrivActionPerformed
+
+    private void BtnCarpetaCifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaCifrarActionPerformed
+       
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(this);
+        File archivo = file.getSelectedFile();
+        if(archivo != null){
+        PathArchivo.setText(archivo.getAbsolutePath());
+        
+        }
+    }//GEN-LAST:event_BtnCarpetaCifrarActionPerformed
+
+    private void BtnCarpetaDestinoCifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaDestinoCifradoActionPerformed
+        
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(this);
+        File archivo = file.getSelectedFile();
+        if(archivo != null){
+        PathArchivoCifrado.setText(archivo.getAbsolutePath());
+        
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_BtnCarpetaDestinoCifradoActionPerformed
+
+    private void BtnBuscarArchivoCifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarArchivoCifradoActionPerformed
+        
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(this);
+        File archivo = file.getSelectedFile();
+        if(archivo != null){
+        PathArchivoDescifrar.setText(archivo.getAbsolutePath());
+        
+        }
+
+    }//GEN-LAST:event_BtnBuscarArchivoCifradoActionPerformed
+
+    private void BtnCrearClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearClavesActionPerformed
+       
+        
+        
+        if(this.TFieldNombreClavePublica.getText().isEmpty() ||  this.TFieldNombreClavePrivada.getText().isEmpty())
+            {
+               
+               JOptionPane.showMessageDialog(null,  "La informacion de las claves está incompleta");
+
+            }
+        else
+        {
+        
+              JOptionPane.showMessageDialog(null, "Se han creado las claves correctamente"); 
+        
+        }
+        
+ 
+    }//GEN-LAST:event_BtnCrearClavesActionPerformed
+
+    private void BtnCifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCifrarActionPerformed
+       
+        
+         if(this.PathArchivo.getText().isEmpty()  || this.PathClavePub.getText().isEmpty() || this.PathArchivoCifrado.getText().isEmpty())
+            {
+   
+               
+               JOptionPane.showMessageDialog(null,  "Por favor, complete la información");
+                
+            }
+        else
+        {
+                JOptionPane.showMessageDialog(null, "Se han crifrado correctamente");
+               
+        
+        }
+        
+        
+        
+    }//GEN-LAST:event_BtnCifrarActionPerformed
+
+    private void BtnDescifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDescifrarActionPerformed
+       
+        
+        if(this.PathArchivoDescifrar.getText().isEmpty()  || this.PathClavePriv.getText().isEmpty() || this.PathArchivoDescifrado.getText().isEmpty())
+            {
+   
+              
+               JOptionPane.showMessageDialog(null,  "Por favor, complete la información");
+                
+            }
+        else
+        {
+                JOptionPane.showMessageDialog(null, "Se han descrifrado correctamente");
+               
+        
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_BtnDescifrarActionPerformed
 
     /**
      * @param args the command line arguments
