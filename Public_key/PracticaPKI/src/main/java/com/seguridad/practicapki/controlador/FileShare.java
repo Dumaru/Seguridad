@@ -21,48 +21,31 @@ import java.util.logging.Logger;
  */
 public class FileShare {
 
-    public static final int BIT_LENGTH = 4;
+    public static final int BIT_LENGTH = 1024;
 
     public FileShare() {
 
     }
 
-    public KeyPair crearClaves(String pathBaseClaves) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    /**
+     * Crea las dos claves privada y publica utilizando RSA de 1024 bits
+     * @param pathBaseClaves
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     * @throws KeyStoreException 
+     */
+    public KeyPair crearClaves(String pathBaseClaves) throws NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException {
         // Genera las claves privada y publica
-
-        KeyFactory fabricaClaves = KeyFactory.getInstance("RSA");
-        Random randomGenerador = new Random();
-
-        // Generar numeros grandes y aleatorios p y q 
-        BigInteger p = BigInteger.probablePrime(BIT_LENGTH, randomGenerador);
-        BigInteger q = BigInteger.probablePrime(BIT_LENGTH, randomGenerador);
-        while (p.equals(q)) {
-            p = BigInteger.probablePrime(BIT_LENGTH, randomGenerador);
-            q = BigInteger.probablePrime(BIT_LENGTH, randomGenerador);
-        }
-        // Calculo de n=pxq y 𝜙(n)
-        BigInteger n = p.multiply(q);
-        BigInteger 𝜙 = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE));
-
-        // Obtencion de la parte privada e con metodo extendido de euclides
-        // sacando el gcd que debe de ser 1 si son primos relativos
-        BigInteger e = BigInteger.ONE;
-        boolean eEncontrado = false;
-        while (!eEncontrado) {
-            //e = nextRandomBigInteger(𝜙);
-            e = e.add(BigInteger.ONE);
-            System.out.println("E "+e);
-            if (gcd(e, 𝜙).compareTo(BigInteger.ONE) == 0 && e.compareTo(𝜙) < 0) {
-                eEncontrado = true;
-            }
-        }
-        RSAPrivateKeySpec especPriv = new RSAPrivateKeySpec(𝜙, e);
-
-        PrivateKey privateKey = fabricaClaves.generatePrivate(especPriv);
-
-        PublicKey publicKey = fabricaClaves.generatePublic(especPriv);
-        KeyPair parClaves = new KeyPair(publicKey, privateKey);
-        System.out.println(parClaves);
+        KeyPairGenerator generadorClaves = KeyPairGenerator.getInstance("RSA");
+        generadorClaves.initialize(BIT_LENGTH);
+        
+        // Genera par de claves y los guarda
+        KeyPair parClaves = generadorClaves.genKeyPair();
+        PrivateKey clavePriv = parClaves.getPrivate();
+        PublicKey clavePub = parClaves.getPublic();
+        
+        // Crear archivos
         // Llamar metodo guardar claves
         return parClaves;
     }
@@ -116,14 +99,17 @@ public class FileShare {
 
     public static void main(String[] args) {
         FileShare fileShare = new FileShare();
-        try {
             System.out.println(FileShare.gcd(BigInteger.valueOf(7), BigInteger.valueOf(120)));
+        try {
             KeyPair parClaves = fileShare.crearClaves("Path");
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (KeyStoreException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
         }
+  
     }
 
 }
