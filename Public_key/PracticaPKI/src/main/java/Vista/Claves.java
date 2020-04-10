@@ -6,7 +6,6 @@
 package Vista;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.lang.model.SourceVersion;
@@ -43,14 +42,14 @@ public class Claves extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        BtnCarpetaCrear = new javax.swing.JButton();
+        BtnGuardarPrivada = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        PathClaves = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        TFieldNombreClavePrivada = new javax.swing.JTextField();
-        TFieldNombreClavePublica = new javax.swing.JTextField();
+        PathClavePrivada = new javax.swing.JTextField();
+        PathClavePublica = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         BtnCrearClaves = new javax.swing.JButton();
+        BtnGuardarPublica = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -76,26 +75,22 @@ public class Claves extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        BtnCarpetaCrear.setText("Buscar...");
-        BtnCarpetaCrear.addActionListener(new java.awt.event.ActionListener() {
+        BtnGuardarPrivada.setText("Guardar");
+        BtnGuardarPrivada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCarpetaCrearActionPerformed(evt);
+                BtnGuardarPrivadaActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Nombre Clave Pública:");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText(" Clave Pública:");
 
-        PathClaves.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText(" Clave Privada:");
+
+        PathClavePrivada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PathClavesActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Nombre Clave Privada:");
-
-        TFieldNombreClavePrivada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFieldNombreClavePrivadaActionPerformed(evt);
+                PathClavePrivadaActionPerformed(evt);
             }
         });
 
@@ -109,6 +104,13 @@ public class Claves extends javax.swing.JFrame {
             }
         });
 
+        BtnGuardarPublica.setText("Guardar");
+        BtnGuardarPublica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarPublicaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -118,44 +120,44 @@ public class Claves extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(TFieldNombreClavePrivada)
-                                    .addComponent(TFieldNombreClavePublica, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(0, 315, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(PathClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PathClavePublica, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                            .addComponent(PathClavePrivada, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(41, 41, 41)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnCarpetaCrear)
-                            .addComponent(BtnCrearClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(76, Short.MAX_VALUE))))
+                            .addComponent(BtnGuardarPublica, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnGuardarPrivada, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtnCrearClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel3)
-                .addGap(31, 31, 31)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PathClaves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnCarpetaCrear))
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFieldNombreClavePrivada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BtnGuardarPrivada)
+                    .addComponent(PathClavePrivada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFieldNombreClavePublica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                    .addComponent(PathClavePublica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnGuardarPublica))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(BtnCrearClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Crear Claves", jPanel1);
@@ -186,7 +188,7 @@ public class Claves extends javax.swing.JFrame {
             }
         });
 
-        BtnCarpetaDestinoCifrado.setText("Buscar ...");
+        BtnCarpetaDestinoCifrado.setText("Guardar");
         BtnCarpetaDestinoCifrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnCarpetaDestinoCifradoActionPerformed(evt);
@@ -217,11 +219,11 @@ public class Claves extends javax.swing.JFrame {
                             .addComponent(PathArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PathArchivoCifrado, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnCarpetaClavePub)
-                            .addComponent(BtnCarpetaCifrar)
-                            .addComponent(BtnCarpetaDestinoCifrado))))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BtnCarpetaCifrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnCarpetaClavePub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnCarpetaDestinoCifrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(102, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BtnCifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,7 +270,7 @@ public class Claves extends javax.swing.JFrame {
             }
         });
 
-        BtnCarpetaDestinoDescifrado.setText("Buscar...");
+        BtnCarpetaDestinoDescifrado.setText("Guardar");
         BtnCarpetaDestinoDescifrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnCarpetaDestinoDescifradoActionPerformed(evt);
@@ -298,7 +300,7 @@ public class Claves extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(BtnDescifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel7)
                         .addComponent(jLabel8)
                         .addComponent(jLabel9)
@@ -313,8 +315,8 @@ public class Claves extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addComponent(PathArchivoDescifrado, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(BtnCarpetaDestinoDescifrado))))
-                .addContainerGap(79, Short.MAX_VALUE))
+                            .addComponent(BtnCarpetaDestinoDescifrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,17 +366,18 @@ public class Claves extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnCarpetaCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaCrearActionPerformed
-        JFileChooser file = new JFileChooser();
-        file.showOpenDialog(this);
-        File archivo = file.getSelectedFile();
+    private void BtnGuardarPrivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarPrivadaActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        //file.showOpenDialog(this);
+        chooser.showSaveDialog(null);
+        File archivo = chooser.getSelectedFile();
         if(archivo != null){
-        PathClaves.setText(archivo.getAbsolutePath());
+        PathClavePrivada.setText(archivo.getAbsolutePath());
             
         }
-        if(this.TFieldNombreClavePrivada.getText() == "" && this.TFieldNombreClavePublica.getText() == "")
+        if(this.PathClavePrivada.getText() == "" && this.PathClavePublica.getText() == "")
         {
-  
+                
         }
         else
         {
@@ -384,15 +387,11 @@ public class Claves extends javax.swing.JFrame {
         
         
         
-    }//GEN-LAST:event_BtnCarpetaCrearActionPerformed
+    }//GEN-LAST:event_BtnGuardarPrivadaActionPerformed
 
-    private void TFieldNombreClavePrivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFieldNombreClavePrivadaActionPerformed
+    private void PathClavePrivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PathClavePrivadaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TFieldNombreClavePrivadaActionPerformed
-
-    private void PathClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PathClavesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PathClavesActionPerformed
+    }//GEN-LAST:event_PathClavePrivadaActionPerformed
 
     private void BtnCarpetaClavePubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaClavePubActionPerformed
        
@@ -412,9 +411,9 @@ public class Claves extends javax.swing.JFrame {
 
     private void BtnCarpetaDestinoDescifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaDestinoDescifradoActionPerformed
         
-        JFileChooser file = new JFileChooser();
-        file.showOpenDialog(this);
-        File archivo = file.getSelectedFile();
+        JFileChooser chooser = new JFileChooser();
+        chooser.showSaveDialog(this);
+        File archivo = chooser.getSelectedFile();
         if(archivo != null){
         PathArchivoDescifrado.setText(archivo.getAbsolutePath());
         
@@ -446,17 +445,14 @@ public class Claves extends javax.swing.JFrame {
 
     private void BtnCarpetaDestinoCifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaDestinoCifradoActionPerformed
         
-        JFileChooser file = new JFileChooser();
-        file.showOpenDialog(this);
-        File archivo = file.getSelectedFile();
+        JFileChooser chooser = new JFileChooser();
+        chooser.showSaveDialog(null);
+        File archivo = chooser.getSelectedFile();
         if(archivo != null){
         PathArchivoCifrado.setText(archivo.getAbsolutePath());
         
         }
-        
-        
-        
-        
+      
     }//GEN-LAST:event_BtnCarpetaDestinoCifradoActionPerformed
 
     private void BtnBuscarArchivoCifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarArchivoCifradoActionPerformed
@@ -475,7 +471,7 @@ public class Claves extends javax.swing.JFrame {
        
         
         
-        if(this.TFieldNombreClavePublica.getText().isEmpty() ||  this.TFieldNombreClavePrivada.getText().isEmpty())
+        if(this.PathClavePublica.getText().isEmpty() ||  this.PathClavePrivada.getText().isEmpty())
             {
                
                JOptionPane.showMessageDialog(null,  "La informacion de las claves está incompleta");
@@ -503,7 +499,7 @@ public class Claves extends javax.swing.JFrame {
             }
         else
         {
-                JOptionPane.showMessageDialog(null, "Se han crifrado correctamente");
+                JOptionPane.showMessageDialog(null, "Se han cifrado correctamente");
                
         
         }
@@ -533,6 +529,29 @@ public class Claves extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_BtnDescifrarActionPerformed
+
+    private void BtnGuardarPublicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarPublicaActionPerformed
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.showSaveDialog(null);
+        File archivo = chooser.getSelectedFile();
+        if(archivo != null){
+        PathClavePublica.setText(archivo.getAbsolutePath());
+            
+        }
+        if(this.PathClavePrivada.getText() == "" && this.PathClavePublica.getText() == "")
+        {
+                
+        }
+        else
+        {
+        this.BtnCrearClaves.setVisible(true);
+        
+        }
+        
+        
+        
+    }//GEN-LAST:event_BtnGuardarPublicaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -588,21 +607,21 @@ public class Claves extends javax.swing.JFrame {
     private javax.swing.JButton BtnBuscarClavePriv;
     private javax.swing.JButton BtnCarpetaCifrar;
     private javax.swing.JButton BtnCarpetaClavePub;
-    private javax.swing.JButton BtnCarpetaCrear;
     private javax.swing.JButton BtnCarpetaDestinoCifrado;
     private javax.swing.JButton BtnCarpetaDestinoDescifrado;
     private javax.swing.JButton BtnCifrar;
     private javax.swing.JButton BtnCrearClaves;
     private javax.swing.JButton BtnDescifrar;
+    private javax.swing.JButton BtnGuardarPrivada;
+    private javax.swing.JButton BtnGuardarPublica;
     private javax.swing.JTextField PathArchivo;
     private javax.swing.JTextField PathArchivoCifrado;
     private javax.swing.JTextField PathArchivoDescifrado;
     private javax.swing.JTextField PathArchivoDescifrar;
     private javax.swing.JTextField PathClavePriv;
+    private javax.swing.JTextField PathClavePrivada;
     private javax.swing.JTextField PathClavePub;
-    private javax.swing.JTextField PathClaves;
-    private javax.swing.JTextField TFieldNombreClavePrivada;
-    private javax.swing.JTextField TFieldNombreClavePublica;
+    private javax.swing.JTextField PathClavePublica;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
