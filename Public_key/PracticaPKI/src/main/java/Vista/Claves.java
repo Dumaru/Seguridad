@@ -380,10 +380,7 @@ public class Claves extends javax.swing.JFrame {
         {
         this.BtnCrearClaves.setVisible(true);
         
-        }
-        
-        
-        
+        }   
     }//GEN-LAST:event_BtnCarpetaCrearActionPerformed
 
     private void TFieldNombreClavePrivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFieldNombreClavePrivadaActionPerformed
