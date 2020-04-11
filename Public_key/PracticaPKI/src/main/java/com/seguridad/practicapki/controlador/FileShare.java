@@ -23,7 +23,9 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
@@ -39,6 +41,8 @@ import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.OutputEncryptor;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
+import java.util.Base64;
+import java.util.Base64.*;
 
 /**
  *
@@ -157,17 +161,74 @@ public class FileShare {
         return archivo;
     }
 
-    public String cifrarArchivo(String pathCifrado, String pathArchivoCifrar, String pathClavePublica) throws NoSuchAlgorithmException, NoSuchPaddingException {
+    /**
+     * Cifra un archivo con la clave publica Informacion:
+     * https://docs.oracle.com/javase/7/docs/api/javax/crypto/Cipher.html
+     *
+     * @param pathSalidaCifrado
+     * @param pathArchivoCifrar
+     * @param pathClavePublica
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchPaddingException
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws InvalidKeySpecException
+     * @throws InvalidKeyException
+     */
+    public String cifrarArchivo(String pathSalidaCifrado, String pathArchivoCifrar, String pathClavePublica) throws NoSuchAlgorithmException, NoSuchPaddingException, IOException, FileNotFoundException, InvalidKeySpecException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         // Cifra el archivo y retorna el direccion donde esta el archivo
         Cipher cifradorRsa = Cipher.getInstance("RSA");
-        return pathCifrado;
+        PublicKey clavePublica = (PublicKey) leerClave(pathClavePublica);
+        cifradorRsa.init(Cipher.ENCRYPT_MODE, clavePublica);
+        byte[] bytesArchivo = leerArchivo(pathArchivoCifrar);
+        // Bytes de salida despues de encriptar
+        byte[] encryptedBytes = cifradorRsa.doFinal(bytesArchivo);
+
+        // Crea el archivo a donde se escribiran los bytes en utf 8
+        FileWriter archivo = new FileWriter(pathSalidaCifrado);
+        Encoder encoderBase64 = Base64.getEncoder();
+        archivo.write(encoderBase64.encodeToString(encryptedBytes));
+        archivo.close();
+        return pathSalidaCifrado;
     }
 
-    public String descifrarArchivo(String pathSalida, String pathArchivoCifrado, String pathClavePrivada) {
+    /**
+     * Descifra un archivo cifrado con la clave privada y escribe el archivo
+     * descifrado en el directorio de salida
+     *
+     * @param pathArchivoSalida
+     * @param pathArchivoCifrado
+     * @param pathClavePrivada
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     * @throws InvalidKeyException
+     * @throws IllegalBlockSizeException
+     * @throws BadPaddingException
+     * @throws FileNotFoundException
+     * @throws NoSuchPaddingException
+     * @throws InvalidKeySpecException
+     */
+    public String descifrarArchivo(String pathArchivoSalida, String pathArchivoCifrado, String pathClavePrivada) throws NoSuchAlgorithmException, IOException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, FileNotFoundException, NoSuchPaddingException, InvalidKeySpecException {
         // Descifra el archivo con la clave privada y retorna la direccion
-        String pathDescifrado = pathSalida;
+        Cipher cifradorRsa = Cipher.getInstance("RSA");
+        PrivateKey clavePrivada = (PrivateKey) leerClave(pathClavePrivada);
+        cifradorRsa.init(Cipher.DECRYPT_MODE, clavePrivada);
+        byte[] bytesArchivo = leerArchivo(pathArchivoCifrado);
 
-        return pathDescifrado;
+        Decoder decoderBase64 = Base64.getDecoder();
+        bytesArchivo = decoderBase64.decode(bytesArchivo);
+
+        // Bytes de salida despues de desencriptar ya que ese era el modo
+        byte[] decryptedBytes = cifradorRsa.doFinal(bytesArchivo);
+        System.out.println("Bytes desencriptado " + Arrays.toString(decryptedBytes));
+        System.out.println("String " + new String(decryptedBytes, "UTF8"));
+        // Crea el archivo a donde se escribiran los bytes en utf 8
+        FileWriter archivo = new FileWriter(pathArchivoSalida);
+        archivo.write(new String(decryptedBytes, "UTF8"));
+        archivo.close();
+        return pathArchivoSalida;
     }
 
     /**
@@ -208,33 +269,59 @@ public class FileShare {
         FileShare fileShare = new FileShare();
         System.out.println(FileShare.gcd(BigInteger.valueOf(7), BigInteger.valueOf(120)));
 
+        //String[] parClaves = fileShare.crearClaves("C:\\claves", "miclave", "miclave");
+        //Key claveRsa = fileShare.leerClave("C:\\claves\\publica.pub");
+        /*
+        Key claveRsa = fileShare.leerClave("C:\\claves\\miclave_publica.pem");
+        if (claveRsa instanceof PrivateKey) {
+            PrivateKey claveRsaPrivada = (PrivateKey) claveRsa;
+            System.out.println("Clave rsa privada: " + claveRsaPrivada);
+        } else {
+            PublicKey claveRsaPublica = (PublicKey) claveRsa;
+            System.out.println("Clave rsa publica: " + claveRsaPublica);
+        }
+         */
+        // Cifrado
+        /*
+        System.out.println("Cifrando");
         try {
-            String[] parClaves = fileShare.crearClaves("C:\\claves", "miclave", "miclave");
-
-            try {
-                //Key claveRsa = fileShare.leerClave("C:\\claves\\publica.pub");
-                Key claveRsa = fileShare.leerClave("C:\\claves\\miclave_publica.pem");
-                if (claveRsa instanceof PrivateKey) {
-                    PrivateKey claveRsaPrivada = (PrivateKey) claveRsa;
-                    System.out.println("Clave rsa privada: " + claveRsaPrivada);
-                }else{
-                    PublicKey claveRsaPublica = (PublicKey) claveRsa;
-                    System.out.println("Clave rsa publica: " + claveRsaPublica);
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+            fileShare.cifrarArchivo("C:\\salidas\\cifrado.txt", "C:\\salidas\\prueba.txt", "C:\\claves\\miclave_publica.pem");
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidKeySpecException ex) {
-            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (KeyStoreException ex) {
+        } catch (NoSuchPaddingException ex) {
             Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeyException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalBlockSizeException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BadPaddingException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+         */
+        // Descifrando
+        System.out.println("Descifrando");
+        try {
+            String pathDescifrado = fileShare.descifrarArchivo("C:\\salidas\\descifrado.txt",
+                    "C:\\salidas\\cifrado.txt",
+                    "C:\\claves\\miclave_privada.pem");
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeyException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalBlockSizeException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BadPaddingException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchPaddingException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
