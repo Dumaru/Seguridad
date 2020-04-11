@@ -233,8 +233,8 @@ public class FileShare {
             Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (OperatorCreationException ex) {
-            Logger.getLogger(FileShare.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         }
     }
 
