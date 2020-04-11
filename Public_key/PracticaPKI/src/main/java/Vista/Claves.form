@@ -78,7 +78,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="pathClaves" min="-2" pref="368" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                                      <Component id="btnGuardarClaves" min="-2" pref="95" max="-2" attributes="0"/>
+                                      <Component id="btnPathClaves" min="-2" pref="95" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -100,7 +100,7 @@
                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="pathClaves" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnGuardarClaves" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnPathClaves" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -120,12 +120,12 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnGuardarClaves">
+            <Component class="javax.swing.JButton" name="btnPathClaves">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Seleccionar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarClavesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPathClavesActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
@@ -256,7 +256,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Seleccione la carpeta donde desea almacenar el archivo cifrado:"/>
+                <Property name="text" type="java.lang.String" value="Seleccione el directorio y nombre del archivo que se cifrara:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="pathArchivo">
@@ -391,7 +391,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Seleccione la carpeta donde desea almacenar el archivo descifrado:"/>
+                <Property name="text" type="java.lang.String" value="Seleccione la carpeta y nombre para el archivo descifrado:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="pathArchivoDescifrar">

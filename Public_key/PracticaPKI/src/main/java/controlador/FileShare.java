@@ -180,6 +180,7 @@ public class FileShare {
     }
 
 
+
     /**
      * Cifra un archivo con la clave publica y lo guarda en el directorio de salida
      * Informacion:https://docs.oracle.com/javase/7/docs/api/javax/crypto/Cipher.html

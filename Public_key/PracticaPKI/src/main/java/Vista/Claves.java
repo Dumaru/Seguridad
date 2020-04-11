@@ -14,20 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-
 package Vista;
 
+import controlador.FileShare;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.lang.model.SourceVersion;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.bouncycastle.operator.OperatorCreationException;
 
 /**
  *
@@ -35,6 +42,18 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Claves extends javax.swing.JFrame {
 
+    private FileShare fileShare;
+    private String pathBaseClaves = "";
+    private String nombrePrivada = "";
+    private String nombrePublica = "";
+
+    private String pathClavePrivada = "";
+    private String pathClavePublica = "";
+
+    private String pathArchivoCifrado = "";
+    private String pathArchivoPlano = "";
+    private String pathSalidaCifrado = "";
+    private String pathSalidaDescifrado = "";
 
     /**
      * Creates new form Claves
@@ -43,9 +62,8 @@ public class Claves extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.btnCrearClaves.setVisible(false);
+        fileShare = new FileShare();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,7 +76,7 @@ public class Claves extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        btnGuardarClaves = new javax.swing.JButton();
+        btnPathClaves = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         nombreClavePrivada = new javax.swing.JTextField();
@@ -91,10 +109,10 @@ public class Claves extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnGuardarClaves.setText("Seleccionar");
-        btnGuardarClaves.addActionListener(new java.awt.event.ActionListener() {
+        btnPathClaves.setText("Seleccionar");
+        btnPathClaves.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarClavesActionPerformed(evt);
+                btnPathClavesActionPerformed(evt);
             }
         });
 
@@ -142,7 +160,7 @@ public class Claves extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(pathClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)
-                                .addComponent(btnGuardarClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnPathClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,7 +175,7 @@ public class Claves extends javax.swing.JFrame {
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pathClaves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardarClaves))
+                    .addComponent(btnPathClaves))
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreClavePrivada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,7 +195,7 @@ public class Claves extends javax.swing.JFrame {
 
         jLabel5.setText("Seleccione el archivo de Clave  Pública:");
 
-        jLabel6.setText("Seleccione la carpeta donde desea almacenar el archivo cifrado:");
+        jLabel6.setText("Seleccione el directorio y nombre del archivo que se cifrara:");
 
         pathArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,7 +290,7 @@ public class Claves extends javax.swing.JFrame {
 
         jLabel8.setText("Seleccione el archivo de Clave Privada:");
 
-        jLabel9.setText("Seleccione la carpeta donde desea almacenar el archivo descifrado:");
+        jLabel9.setText("Seleccione la carpeta y nombre para el archivo descifrado:");
 
         btnBuscarClavePriv.setText("Buscar...");
         btnBuscarClavePriv.addActionListener(new java.awt.event.ActionListener() {
@@ -377,10 +395,10 @@ public class Claves extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuardarClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClavesActionPerformed
-       this.GuardarClaves();
-  
-    }//GEN-LAST:event_btnGuardarClavesActionPerformed
+    private void btnPathClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathClavesActionPerformed
+        this.burcarDirectorioClaves();
+
+    }//GEN-LAST:event_btnPathClavesActionPerformed
 
     private void TFieldNombreClavePrivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFieldNombreClavePrivadaActionPerformed
         // TODO add your handling code here:
@@ -393,7 +411,7 @@ public class Claves extends javax.swing.JFrame {
 
     private void btnPathClavePubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathClavePubActionPerformed
         this.CarpetaClavesPub();
-      
+
     }//GEN-LAST:event_btnPathClavePubActionPerformed
 
     private void pathArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathArchivoActionPerformed
@@ -401,9 +419,9 @@ public class Claves extends javax.swing.JFrame {
     }//GEN-LAST:event_pathArchivoActionPerformed
 
     private void btnPathDestinoDescifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathDestinoDescifradoActionPerformed
-        
-    this.CarpetaDestinoDescifrado();
-  
+
+        this.CarpetaDestinoDescifrado();
+
     }//GEN-LAST:event_btnPathDestinoDescifradoActionPerformed
 
     private void btnBuscarClavePrivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClavePrivActionPerformed
@@ -412,7 +430,7 @@ public class Claves extends javax.swing.JFrame {
 
     private void btnArchivoCifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArchivoCifrarActionPerformed
         this.ArchivoCifrar();
-       
+
     }//GEN-LAST:event_btnArchivoCifrarActionPerformed
 
     private void BtnCarpetaDestinoCifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaDestinoCifradoActionPerformed
@@ -424,19 +442,18 @@ public class Claves extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarArchivoCifradoActionPerformed
 
     private void btnCrearClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClavesActionPerformed
-       
-        
-      this.CrearClaves();
+
+        this.CrearClaves();
     }//GEN-LAST:event_btnCrearClavesActionPerformed
 
     private void btnCifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCifrarActionPerformed
-       this.Cifrar();
-      
+        this.Cifrar();
+
     }//GEN-LAST:event_btnCifrarActionPerformed
 
     private void btnDescifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescifrarActionPerformed
         this.Descifrar();
-     
+
     }//GEN-LAST:event_btnDescifrarActionPerformed
 
     /**
@@ -469,7 +486,7 @@ public class Claves extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
+
                 try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException ex) {
@@ -481,8 +498,7 @@ public class Claves extends javax.swing.JFrame {
                 } catch (UnsupportedLookAndFeelException ex) {
                     Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                
+
                 new Claves().setVisible(true);
             }
         });
@@ -496,8 +512,8 @@ public class Claves extends javax.swing.JFrame {
     private javax.swing.JButton btnCifrar;
     private javax.swing.JButton btnCrearClaves;
     private javax.swing.JButton btnDescifrar;
-    private javax.swing.JButton btnGuardarClaves;
     private javax.swing.JButton btnPathClavePub;
+    private javax.swing.JButton btnPathClaves;
     private javax.swing.JButton btnPathDestinoDescifrado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -526,259 +542,310 @@ public class Claves extends javax.swing.JFrame {
     public SourceVersion getSupportedSourceVersion() {
         return SourceVersion.latest();
     }
-    
-     /**
+
+    /**
      * Selecciona el directorio donde se desea almacenar las claves
      *
-     * @param 
+     * @param
      * @return
      * @throws IOException
      * @throws FileNotFoundException
      * @throws NullPointerException
      */
-    public void GuardarClaves()
-    {
+    public void burcarDirectorioClaves() {
         //Crea objeto de tipo File chooser y muetra pantalla de guardado
         JFileChooser chooser = new JFileChooser();
-        chooser.showSaveDialog(null);
-        File archivo = chooser.getSelectedFile();
-        
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int opcion = chooser.showOpenDialog(null);
+
+        File archivo = null;
+        if (opcion == JFileChooser.APPROVE_OPTION) {
+            archivo = chooser.getSelectedFile();
+        }
+
         //Verifica si el archivo no es null y pasa la direccion al TextField
-        if(archivo != null){
-        pathClaves.setText(archivo.getAbsolutePath());
-            
+        if (archivo != null) {
+            pathClaves.setText(archivo.getAbsolutePath());
+            this.pathBaseClaves = archivo.getAbsolutePath();
         }
         //Verifica si la informacion esta completa y muestra el boton para crear las claves
-        if(this.nombreClavePrivada.getText() == "" && this.nombreClavePublica.getText() == "")
-        {
-           this.btnCrearClaves.setVisible(false);
-            
-        }
-        else
-        {
-        this.btnCrearClaves.setVisible(true);
-        
+        if (this.nombreClavePrivada.getText() == "" && this.nombreClavePublica.getText() == "") {
+            this.btnCrearClaves.setVisible(false);
+
+        } else {
+            this.btnCrearClaves.setVisible(true);
 
         }
-        
-        
+
     }
-    
+
     /**
-     * Crea las claves publica y privada y las almacena en el directorio seleccionado
+     * Crea las claves publica y privada y las almacena en el directorio
+     * seleccionado
      *
-     * @param 
+     * @param
      * @return
      * @throws IOException
      * @throws FileNotFoundException
      * @throws NullPointerException
      */
-    public void CrearClaves()
-    {
-    
-        if(this.nombreClavePublica.getText().isEmpty() ||  this.nombreClavePrivada.getText().isEmpty())
-            {
-               
-               JOptionPane.showMessageDialog(null,  "La informacion de las claves está incompleta");
+    public void CrearClaves() {
 
+        if (this.nombreClavePublica.getText().isEmpty() || this.nombreClavePrivada.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "La informacion de las claves está incompleta");
+
+        } else {
+            this.nombrePrivada = this.nombreClavePrivada.getText().toString();
+            this.nombrePublica = this.nombreClavePublica.getText().toString();
+            try {
+                this.fileShare.crearClaves(this.pathBaseClaves,
+                        this.nombrePrivada,
+                        this.nombrePublica);
+                JOptionPane.showMessageDialog(null, "Se han creado las claves correctamente");
+
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeySpecException ex) {
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (KeyStoreException ex) {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error: " + ex.getLocalizedMessage());
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error: " + ex.getLocalizedMessage());
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (OperatorCreationException ex) {
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
             }
-        else
-        {
-        
-              JOptionPane.showMessageDialog(null, "Se han creado las claves correctamente"); 
-        
+
         }
-        
-        
-        
+
     }
-    
+
     /**
-     * Selecciona el archivo que desea cifrar 
-     * @param 
-     * @return 
+     * Selecciona el archivo que desea cifrar
+     *
+     * @param
+     * @return
      * @throws IOException
      * @throws FileNotFoundException
      * @throws NullPointerException
      */
-    public void ArchivoCifrar()
-    {
-        
+    public void ArchivoCifrar() {
+
         //Crea objeto de tipo File chooser y muetra pantalla de abrir archivo
         JFileChooser file = new JFileChooser();
         file.showOpenDialog(this);
         File archivo = file.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
-        if(archivo != null){
-        pathArchivo.setText(archivo.getAbsolutePath());
-        
+        if (archivo != null) {
+            pathArchivo.setText(archivo.getAbsolutePath());
+
         }
 
     }
-    
+
     /**
      * Busca el archivo de clave pública para cifrar un archivo
-     * @param 
-     * @return 
+     *
+     * @param
+     * @return
      * @throws IOException
      * @throws FileNotFoundException
      * @throws NullPointerException
      */
-    public void CarpetaClavesPub()
-    {
+    public void CarpetaClavesPub() {
         //Crea objeto de tipo File chooser y muetra pantalla de abrir archivo
         JFileChooser file = new JFileChooser();
         file.showOpenDialog(this);
         File archivo = file.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
-        if(archivo != null){
-        pathClavePub.setText(archivo.getAbsolutePath());
-            
+        if (archivo != null) {
+            pathClavePub.setText(archivo.getAbsolutePath());
+
         }
-  
+
     }
-    
+
     /**
      * Selecciona la carpeta donde desea almacenar el archivo cifrado
-     * @param 
-     * @return 
+     *
+     * @param
+     * @return
      * @throws IOException
      * @throws FileNotFoundException
      * @throws NullPointerException
      */
-    public void CarpetaDestinoCifrado()
-    {
+    public void CarpetaDestinoCifrado() {
         //Crea objeto de tipo File chooser y muetra pantalla de guardar archivo
         JFileChooser chooser = new JFileChooser();
         chooser.showSaveDialog(null);
         File archivo = chooser.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
-        if(archivo != null){
-        pathSalidaArchivoCifrado.setText(archivo.getAbsolutePath());
-        
-        }
-   
-    }
-    /**
-     * Valida si la información para cifrar esta completa
-     * @param 
-     * @return 
-     * @throws IOException
-     */
-    public void Cifrar()
-    {
-         //Valida si se completaron los campos de texto y arroja mensaje de confirmación
-         if(this.pathArchivo.getText().isEmpty()  || this.pathClavePub.getText().isEmpty() || this.pathSalidaArchivoCifrado.getText().isEmpty())
-            {
-   
-               
-               JOptionPane.showMessageDialog(null,  "Por favor, complete la información");
-                
-            }
-        else
-        {
-                JOptionPane.showMessageDialog(null, "Se han cifrado correctamente");
-               
-        
-        }
-        
-   
-    }
-    
-     /**
-     * Selecciona la carpeta donde esta almacenado el archivo cifrado
-     * @param 
-     * @return 
-     * @throws IOException
-     * @throws FileNotFoundException
-     * @throws NullPointerException
-     */
-    public void BuscarArchivoCifrado()
-    {
-        //Crea objeto de tipo File chooser y muetra pantalla de abrir archivo
-        JFileChooser file = new JFileChooser();
-        file.showOpenDialog(this);
-        File archivo = file.getSelectedFile();
-        //Verifica si el archivo no es null y pasa la direccion al TextField
-        if(archivo != null){
-        pathArchivoDescifrar.setText(archivo.getAbsolutePath());
-        
+        if (archivo != null) {
+            pathSalidaArchivoCifrado.setText(archivo.getAbsolutePath());
+            this.pathArchivoCifrado = archivo.getAbsolutePath();
         }
 
     }
-    
-     /**
-     * Selecciona la carpeta donde esta almacenado el archivo de clave privada
-     * @param 
-     * @return 
+
+    /**
+     * Valida si la información para cifrar esta completa
+     *
+     * @param
+     * @return
+     * @throws IOException
+     */
+    public void Cifrar() {
+        //Valida si se completaron los campos de texto y arroja mensaje de confirmación
+        if (this.pathArchivo.getText().isEmpty() || this.pathClavePub.getText().isEmpty() || this.pathSalidaArchivoCifrado.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Por favor, complete la información");
+
+        } else {
+            this.pathSalidaCifrado = this.pathSalidaArchivoCifrado.getText().toString();
+            this.pathArchivoPlano = this.pathArchivo.getText().toString();
+            this.pathClavePublica = this.pathClavePub.getText().toString();
+            try {
+                String pathCifrado = fileShare.cifrarArchivo(pathSalidaCifrado,
+                        pathArchivoPlano, pathClavePublica);
+                JOptionPane.showMessageDialog(null, "Se han cifrado correctamente: " + pathCifrado);
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoSuchPaddingException ex) {
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "No se cifro correctamente: " + ex.getMessage());
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeySpecException ex) {
+                JOptionPane.showMessageDialog(null, "No se cifro correctamente: " + ex.getMessage());
+
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeyException ex) {
+                JOptionPane.showMessageDialog(null, "No se cifro correctamente: " + ex.getMessage());
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalBlockSizeException ex) {
+                JOptionPane.showMessageDialog(null, "No se cifro correctamente: " + ex.getMessage());
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BadPaddingException ex) {
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
+
+    /**
+     * Selecciona la carpeta donde esta almacenado el archivo cifrado
+     *
+     * @param
+     * @return
      * @throws IOException
      * @throws FileNotFoundException
      * @throws NullPointerException
      */
-    public void BuscarClavePriv()
-    {
+    public void BuscarArchivoCifrado() {
         //Crea objeto de tipo File chooser y muetra pantalla de abrir archivo
         JFileChooser file = new JFileChooser();
         file.showOpenDialog(this);
         File archivo = file.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
-        if(archivo != null){
-        pathClavePriv.setText(archivo.getAbsolutePath());
-        
+        if (archivo != null) {
+            pathArchivoDescifrar.setText(archivo.getAbsolutePath());
+
         }
- 
+
     }
-    
-     /**
-     * Selecciona la carpeta donde desea almacenar el archivo descifrado
-     * @param 
-     * @return 
+
+    /**
+     * Selecciona la carpeta donde esta almacenado el archivo de clave privada
+     *
+     * @param
+     * @return
      * @throws IOException
      * @throws FileNotFoundException
      * @throws NullPointerException
      */
-    
-    public void CarpetaDestinoDescifrado()
-    {
+    public void BuscarClavePriv() {
+        //Crea objeto de tipo File chooser y muetra pantalla de abrir archivo
+        JFileChooser file = new JFileChooser();
+        file.showOpenDialog(this);
+        File archivo = file.getSelectedFile();
+        //Verifica si el archivo no es null y pasa la direccion al TextField
+        if (archivo != null) {
+            pathClavePriv.setText(archivo.getAbsolutePath());
+
+        }
+
+    }
+
+    /**
+     * Selecciona la carpeta donde desea almacenar el archivo descifrado
+     *
+     * @param
+     * @return
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws NullPointerException
+     */
+    public void CarpetaDestinoDescifrado() {
         //Crea objeto de tipo File chooser y muetra pantalla de guardar archivo
         JFileChooser chooser = new JFileChooser();
         chooser.showSaveDialog(this);
         File archivo = chooser.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
-        if(archivo != null){
-        pathArchivoDescifrado.setText(archivo.getAbsolutePath());
-        
+        if (archivo != null) {
+            pathArchivoDescifrado.setText(archivo.getAbsolutePath());
+
         }
-    
-    
+
     }
-    
-    
+
     /**
      * Valida si la información para descifrar esta completa
-     * @param 
-     * @return 
+     *
+     * @param
+     * @return
      * @throws IOException
      */
-    
-    public void Descifrar()
-    {
-    
+    public void Descifrar() {
+
         //Valida si se completaron los campos de texto y arroja mensaje de confirmación
-        if(this.pathArchivoDescifrar.getText().isEmpty()  || this.pathClavePriv.getText().isEmpty() || this.pathArchivoDescifrado.getText().isEmpty())
-            {
-   
-              
-               JOptionPane.showMessageDialog(null,  "Por favor, complete la información");
-                
+        if (this.pathArchivoDescifrar.getText().isEmpty() || this.pathClavePriv.getText().isEmpty() || this.pathArchivoDescifrado.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Por favor, complete la información");
+
+        } else {
+            this.pathArchivoCifrado = this.pathArchivoDescifrar.getText().toString();
+            this.pathClavePrivada = this.pathClavePriv.getText().toString();
+            this.pathSalidaDescifrado = this.pathArchivoDescifrado.getText().toString();
+            try {
+                String pathDescifrado = fileShare.descifrarArchivo(this.pathSalidaDescifrado,
+                        this.pathArchivoCifrado,
+                        this.pathClavePrivada);
+                JOptionPane.showMessageDialog(null, "Se han descrifrado correctamente: " + pathDescifrado);
+
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "No se descifro correctamente: " + ex.getMessage());
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeyException ex) {
+                JOptionPane.showMessageDialog(null, "No se descifro correctamente: " + ex.getMessage());
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalBlockSizeException ex) {
+                JOptionPane.showMessageDialog(null, "No se descifro correctamente: " + ex.getMessage());
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BadPaddingException ex) {
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoSuchPaddingException ex) {
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeySpecException ex) {
+                JOptionPane.showMessageDialog(null, "No se descifro correctamente: " + ex.getMessage());
+                Logger.getLogger(Claves.class.getName()).log(Level.SEVERE, null, ex);
             }
-        else
-        {
-                JOptionPane.showMessageDialog(null, "Se han descrifrado correctamente");
-               
-        
+
         }
-  
-    
+
     }
 }
