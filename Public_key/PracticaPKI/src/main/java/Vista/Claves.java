@@ -1,8 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2020 robin
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+
 package Vista;
 
 import java.io.File;
@@ -29,7 +42,7 @@ public class Claves extends javax.swing.JFrame {
     public Claves() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.BtnCrearClaves.setVisible(false);
+        this.btnCrearClaves.setVisible(false);
     }
     
     
@@ -45,43 +58,43 @@ public class Claves extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        BtnGuardarClaves = new javax.swing.JButton();
+        btnGuardarClaves = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        NombreClavePrivada = new javax.swing.JTextField();
-        NombreClavePublica = new javax.swing.JTextField();
+        nombreClavePrivada = new javax.swing.JTextField();
+        nombreClavePublica = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        BtnCrearClaves = new javax.swing.JButton();
-        PathClaves = new javax.swing.JTextField();
+        btnCrearClaves = new javax.swing.JButton();
+        pathClaves = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        PathArchivo = new javax.swing.JTextField();
-        PathArchivoCifrado = new javax.swing.JTextField();
-        PathClavePub = new javax.swing.JTextField();
-        BtnCarpetaClavePub = new javax.swing.JButton();
-        BtnCarpetaCifrar = new javax.swing.JButton();
+        pathArchivo = new javax.swing.JTextField();
+        pathSalidaArchivoCifrado = new javax.swing.JTextField();
+        pathClavePub = new javax.swing.JTextField();
+        btnPathClavePub = new javax.swing.JButton();
+        btnArchivoCifrar = new javax.swing.JButton();
         BtnCarpetaDestinoCifrado = new javax.swing.JButton();
-        BtnCifrar = new javax.swing.JButton();
+        btnCifrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        PathArchivoDescifrar = new javax.swing.JTextField();
-        PathClavePriv = new javax.swing.JTextField();
-        PathArchivoDescifrado = new javax.swing.JTextField();
-        BtnBuscarClavePriv = new javax.swing.JButton();
-        BtnCarpetaDestinoDescifrado = new javax.swing.JButton();
-        BtnBuscarArchivoCifrado = new javax.swing.JButton();
-        BtnDescifrar = new javax.swing.JButton();
+        pathArchivoDescifrar = new javax.swing.JTextField();
+        pathClavePriv = new javax.swing.JTextField();
+        pathArchivoDescifrado = new javax.swing.JTextField();
+        btnBuscarClavePriv = new javax.swing.JButton();
+        btnPathDestinoDescifrado = new javax.swing.JButton();
+        btnBuscarArchivoCifrado = new javax.swing.JButton();
+        btnDescifrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        BtnGuardarClaves.setText("Guardar");
-        BtnGuardarClaves.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarClaves.setText("Seleccionar");
+        btnGuardarClaves.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnGuardarClavesActionPerformed(evt);
+                btnGuardarClavesActionPerformed(evt);
             }
         });
 
@@ -91,19 +104,19 @@ public class Claves extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText(" Clave Privada:");
 
-        NombreClavePrivada.addActionListener(new java.awt.event.ActionListener() {
+        nombreClavePrivada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NombreClavePrivadaActionPerformed(evt);
+                nombreClavePrivadaActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Seleccione  la carpeta donde desea almacenar las claves:");
 
-        BtnCrearClaves.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        BtnCrearClaves.setText("Crear");
-        BtnCrearClaves.addActionListener(new java.awt.event.ActionListener() {
+        btnCrearClaves.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCrearClaves.setText("Crear");
+        btnCrearClaves.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCrearClavesActionPerformed(evt);
+                btnCrearClavesActionPerformed(evt);
             }
         });
 
@@ -124,15 +137,16 @@ public class Claves extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addGap(33, 33, 33)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(NombreClavePrivada, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                                    .addComponent(NombreClavePublica)))
-                            .addComponent(PathClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(58, 58, 58)
-                        .addComponent(BtnGuardarClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombreClavePrivada, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                                    .addComponent(nombreClavePublica)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(pathClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(46, 46, 46)
+                                .addComponent(btnGuardarClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnCrearClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCrearClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70))
         );
         jPanel1Layout.setVerticalGroup(
@@ -142,18 +156,18 @@ public class Claves extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PathClaves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnGuardarClaves))
+                    .addComponent(pathClaves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardarClaves))
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NombreClavePrivada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreClavePrivada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NombreClavePublica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreClavePublica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(BtnCrearClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCrearClaves, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -165,23 +179,23 @@ public class Claves extends javax.swing.JFrame {
 
         jLabel6.setText("Seleccione la carpeta donde desea almacenar el archivo cifrado:");
 
-        PathArchivo.addActionListener(new java.awt.event.ActionListener() {
+        pathArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PathArchivoActionPerformed(evt);
+                pathArchivoActionPerformed(evt);
             }
         });
 
-        BtnCarpetaClavePub.setText("Buscar...");
-        BtnCarpetaClavePub.addActionListener(new java.awt.event.ActionListener() {
+        btnPathClavePub.setText("Buscar...");
+        btnPathClavePub.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCarpetaClavePubActionPerformed(evt);
+                btnPathClavePubActionPerformed(evt);
             }
         });
 
-        BtnCarpetaCifrar.setText("Buscar...");
-        BtnCarpetaCifrar.addActionListener(new java.awt.event.ActionListener() {
+        btnArchivoCifrar.setText("Buscar...");
+        btnArchivoCifrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCarpetaCifrarActionPerformed(evt);
+                btnArchivoCifrarActionPerformed(evt);
             }
         });
 
@@ -192,11 +206,11 @@ public class Claves extends javax.swing.JFrame {
             }
         });
 
-        BtnCifrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        BtnCifrar.setText("Cifrar");
-        BtnCifrar.addActionListener(new java.awt.event.ActionListener() {
+        btnCifrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCifrar.setText("Cifrar");
+        btnCifrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCifrarActionPerformed(evt);
+                btnCifrarActionPerformed(evt);
             }
         });
 
@@ -212,18 +226,18 @@ public class Claves extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PathClavePub, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PathArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PathArchivoCifrado, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pathClavePub, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pathArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pathSalidaArchivoCifrado, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BtnCarpetaCifrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BtnCarpetaClavePub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnArchivoCifrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPathClavePub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnCarpetaDestinoCifrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(102, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnCifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77))
         );
         jPanel2Layout.setVerticalGroup(
@@ -233,22 +247,22 @@ public class Claves extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PathArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnCarpetaCifrar))
+                    .addComponent(pathArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnArchivoCifrar))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PathClavePub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnCarpetaClavePub))
+                    .addComponent(pathClavePub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPathClavePub))
                 .addGap(19, 19, 19)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PathArchivoCifrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pathSalidaArchivoCifrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnCarpetaDestinoCifrado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(BtnCifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
 
@@ -260,32 +274,32 @@ public class Claves extends javax.swing.JFrame {
 
         jLabel9.setText("Seleccione la carpeta donde desea almacenar el archivo descifrado:");
 
-        BtnBuscarClavePriv.setText("Buscar...");
-        BtnBuscarClavePriv.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarClavePriv.setText("Buscar...");
+        btnBuscarClavePriv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBuscarClavePrivActionPerformed(evt);
+                btnBuscarClavePrivActionPerformed(evt);
             }
         });
 
-        BtnCarpetaDestinoDescifrado.setText("Guardar");
-        BtnCarpetaDestinoDescifrado.addActionListener(new java.awt.event.ActionListener() {
+        btnPathDestinoDescifrado.setText("Guardar");
+        btnPathDestinoDescifrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCarpetaDestinoDescifradoActionPerformed(evt);
+                btnPathDestinoDescifradoActionPerformed(evt);
             }
         });
 
-        BtnBuscarArchivoCifrado.setText("Buscar...");
-        BtnBuscarArchivoCifrado.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarArchivoCifrado.setText("Buscar...");
+        btnBuscarArchivoCifrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBuscarArchivoCifradoActionPerformed(evt);
+                btnBuscarArchivoCifradoActionPerformed(evt);
             }
         });
 
-        BtnDescifrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        BtnDescifrar.setText("Descifrar");
-        BtnDescifrar.addActionListener(new java.awt.event.ActionListener() {
+        btnDescifrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnDescifrar.setText("Descifrar");
+        btnDescifrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnDescifrarActionPerformed(evt);
+                btnDescifrarActionPerformed(evt);
             }
         });
 
@@ -296,23 +310,23 @@ public class Claves extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BtnDescifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDescifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel7)
                         .addComponent(jLabel8)
                         .addComponent(jLabel9)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(PathClavePriv, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(PathArchivoDescifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(pathClavePriv, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pathArchivoDescifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(BtnBuscarClavePriv)
-                                .addComponent(BtnBuscarArchivoCifrado)))
+                                .addComponent(btnBuscarClavePriv)
+                                .addComponent(btnBuscarArchivoCifrado)))
                         .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(PathArchivoDescifrado, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pathArchivoDescifrado, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(BtnCarpetaDestinoDescifrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnPathDestinoDescifrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -322,22 +336,22 @@ public class Claves extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BtnBuscarArchivoCifrado)
-                    .addComponent(PathArchivoDescifrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscarArchivoCifrado)
+                    .addComponent(pathArchivoDescifrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PathClavePriv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnBuscarClavePriv))
+                    .addComponent(pathClavePriv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarClavePriv))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PathArchivoDescifrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnCarpetaDestinoDescifrado))
+                    .addComponent(pathArchivoDescifrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPathDestinoDescifrado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(BtnDescifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDescifrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
 
@@ -363,67 +377,67 @@ public class Claves extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnGuardarClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarClavesActionPerformed
+    private void btnGuardarClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClavesActionPerformed
        this.GuardarClaves();
   
-    }//GEN-LAST:event_BtnGuardarClavesActionPerformed
+    }//GEN-LAST:event_btnGuardarClavesActionPerformed
 
     private void TFieldNombreClavePrivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFieldNombreClavePrivadaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFieldNombreClavePrivadaActionPerformed
 
 
-    private void NombreClavePrivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreClavePrivadaActionPerformed
+    private void nombreClavePrivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreClavePrivadaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NombreClavePrivadaActionPerformed
+    }//GEN-LAST:event_nombreClavePrivadaActionPerformed
 
-    private void BtnCarpetaClavePubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaClavePubActionPerformed
+    private void btnPathClavePubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathClavePubActionPerformed
         this.CarpetaClavesPub();
       
-    }//GEN-LAST:event_BtnCarpetaClavePubActionPerformed
+    }//GEN-LAST:event_btnPathClavePubActionPerformed
 
-    private void PathArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PathArchivoActionPerformed
+    private void pathArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathArchivoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PathArchivoActionPerformed
+    }//GEN-LAST:event_pathArchivoActionPerformed
 
-    private void BtnCarpetaDestinoDescifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaDestinoDescifradoActionPerformed
+    private void btnPathDestinoDescifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPathDestinoDescifradoActionPerformed
         
     this.CarpetaDestinoDescifrado();
   
-    }//GEN-LAST:event_BtnCarpetaDestinoDescifradoActionPerformed
+    }//GEN-LAST:event_btnPathDestinoDescifradoActionPerformed
 
-    private void BtnBuscarClavePrivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarClavePrivActionPerformed
+    private void btnBuscarClavePrivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClavePrivActionPerformed
         this.BuscarClavePriv();
-    }//GEN-LAST:event_BtnBuscarClavePrivActionPerformed
+    }//GEN-LAST:event_btnBuscarClavePrivActionPerformed
 
-    private void BtnCarpetaCifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaCifrarActionPerformed
+    private void btnArchivoCifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArchivoCifrarActionPerformed
         this.ArchivoCifrar();
        
-    }//GEN-LAST:event_BtnCarpetaCifrarActionPerformed
+    }//GEN-LAST:event_btnArchivoCifrarActionPerformed
 
     private void BtnCarpetaDestinoCifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCarpetaDestinoCifradoActionPerformed
         this.CarpetaDestinoCifrado();
     }//GEN-LAST:event_BtnCarpetaDestinoCifradoActionPerformed
 
-    private void BtnBuscarArchivoCifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarArchivoCifradoActionPerformed
+    private void btnBuscarArchivoCifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArchivoCifradoActionPerformed
         this.BuscarArchivoCifrado();
-    }//GEN-LAST:event_BtnBuscarArchivoCifradoActionPerformed
+    }//GEN-LAST:event_btnBuscarArchivoCifradoActionPerformed
 
-    private void BtnCrearClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearClavesActionPerformed
+    private void btnCrearClavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClavesActionPerformed
        
         
       this.CrearClaves();
-    }//GEN-LAST:event_BtnCrearClavesActionPerformed
+    }//GEN-LAST:event_btnCrearClavesActionPerformed
 
-    private void BtnCifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCifrarActionPerformed
+    private void btnCifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCifrarActionPerformed
        this.Cifrar();
       
-    }//GEN-LAST:event_BtnCifrarActionPerformed
+    }//GEN-LAST:event_btnCifrarActionPerformed
 
-    private void BtnDescifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDescifrarActionPerformed
+    private void btnDescifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescifrarActionPerformed
         this.Descifrar();
      
-    }//GEN-LAST:event_BtnDescifrarActionPerformed
+    }//GEN-LAST:event_btnDescifrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -475,25 +489,16 @@ public class Claves extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnBuscarArchivoCifrado;
-    private javax.swing.JButton BtnBuscarClavePriv;
-    private javax.swing.JButton BtnCarpetaCifrar;
-    private javax.swing.JButton BtnCarpetaClavePub;
     private javax.swing.JButton BtnCarpetaDestinoCifrado;
-    private javax.swing.JButton BtnCarpetaDestinoDescifrado;
-    private javax.swing.JButton BtnCifrar;
-    private javax.swing.JButton BtnCrearClaves;
-    private javax.swing.JButton BtnDescifrar;
-    private javax.swing.JButton BtnGuardarClaves;
-    private javax.swing.JTextField NombreClavePrivada;
-    private javax.swing.JTextField NombreClavePublica;
-    private javax.swing.JTextField PathArchivo;
-    private javax.swing.JTextField PathArchivoCifrado;
-    private javax.swing.JTextField PathArchivoDescifrado;
-    private javax.swing.JTextField PathArchivoDescifrar;
-    private javax.swing.JTextField PathClavePriv;
-    private javax.swing.JTextField PathClavePub;
-    private javax.swing.JTextField PathClaves;
+    private javax.swing.JButton btnArchivoCifrar;
+    private javax.swing.JButton btnBuscarArchivoCifrado;
+    private javax.swing.JButton btnBuscarClavePriv;
+    private javax.swing.JButton btnCifrar;
+    private javax.swing.JButton btnCrearClaves;
+    private javax.swing.JButton btnDescifrar;
+    private javax.swing.JButton btnGuardarClaves;
+    private javax.swing.JButton btnPathClavePub;
+    private javax.swing.JButton btnPathDestinoDescifrado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -507,6 +512,15 @@ public class Claves extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField nombreClavePrivada;
+    private javax.swing.JTextField nombreClavePublica;
+    private javax.swing.JTextField pathArchivo;
+    private javax.swing.JTextField pathArchivoDescifrado;
+    private javax.swing.JTextField pathArchivoDescifrar;
+    private javax.swing.JTextField pathClavePriv;
+    private javax.swing.JTextField pathClavePub;
+    private javax.swing.JTextField pathClaves;
+    private javax.swing.JTextField pathSalidaArchivoCifrado;
     // End of variables declaration//GEN-END:variables
 
     public SourceVersion getSupportedSourceVersion() {
@@ -531,18 +545,18 @@ public class Claves extends javax.swing.JFrame {
         
         //Verifica si el archivo no es null y pasa la direccion al TextField
         if(archivo != null){
-        PathClaves.setText(archivo.getAbsolutePath());
+        pathClaves.setText(archivo.getAbsolutePath());
             
         }
         //Verifica si la informacion esta completa y muestra el boton para crear las claves
-        if(this.NombreClavePrivada.getText() == "" && this.NombreClavePublica.getText() == "")
+        if(this.nombreClavePrivada.getText() == "" && this.nombreClavePublica.getText() == "")
         {
-           this.BtnCrearClaves.setVisible(false);
+           this.btnCrearClaves.setVisible(false);
             
         }
         else
         {
-        this.BtnCrearClaves.setVisible(true);
+        this.btnCrearClaves.setVisible(true);
         
 
         }
@@ -562,7 +576,7 @@ public class Claves extends javax.swing.JFrame {
     public void CrearClaves()
     {
     
-        if(this.NombreClavePublica.getText().isEmpty() ||  this.NombreClavePrivada.getText().isEmpty())
+        if(this.nombreClavePublica.getText().isEmpty() ||  this.nombreClavePrivada.getText().isEmpty())
             {
                
                JOptionPane.showMessageDialog(null,  "La informacion de las claves está incompleta");
@@ -596,7 +610,7 @@ public class Claves extends javax.swing.JFrame {
         File archivo = file.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
         if(archivo != null){
-        PathArchivo.setText(archivo.getAbsolutePath());
+        pathArchivo.setText(archivo.getAbsolutePath());
         
         }
 
@@ -618,7 +632,7 @@ public class Claves extends javax.swing.JFrame {
         File archivo = file.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
         if(archivo != null){
-        PathClavePub.setText(archivo.getAbsolutePath());
+        pathClavePub.setText(archivo.getAbsolutePath());
             
         }
   
@@ -640,7 +654,7 @@ public class Claves extends javax.swing.JFrame {
         File archivo = chooser.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
         if(archivo != null){
-        PathArchivoCifrado.setText(archivo.getAbsolutePath());
+        pathSalidaArchivoCifrado.setText(archivo.getAbsolutePath());
         
         }
    
@@ -654,7 +668,7 @@ public class Claves extends javax.swing.JFrame {
     public void Cifrar()
     {
          //Valida si se completaron los campos de texto y arroja mensaje de confirmación
-         if(this.PathArchivo.getText().isEmpty()  || this.PathClavePub.getText().isEmpty() || this.PathArchivoCifrado.getText().isEmpty())
+         if(this.pathArchivo.getText().isEmpty()  || this.pathClavePub.getText().isEmpty() || this.pathSalidaArchivoCifrado.getText().isEmpty())
             {
    
                
@@ -687,7 +701,7 @@ public class Claves extends javax.swing.JFrame {
         File archivo = file.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
         if(archivo != null){
-        PathArchivoDescifrar.setText(archivo.getAbsolutePath());
+        pathArchivoDescifrar.setText(archivo.getAbsolutePath());
         
         }
 
@@ -709,7 +723,7 @@ public class Claves extends javax.swing.JFrame {
         File archivo = file.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
         if(archivo != null){
-        PathClavePriv.setText(archivo.getAbsolutePath());
+        pathClavePriv.setText(archivo.getAbsolutePath());
         
         }
  
@@ -732,7 +746,7 @@ public class Claves extends javax.swing.JFrame {
         File archivo = chooser.getSelectedFile();
         //Verifica si el archivo no es null y pasa la direccion al TextField
         if(archivo != null){
-        PathArchivoDescifrado.setText(archivo.getAbsolutePath());
+        pathArchivoDescifrado.setText(archivo.getAbsolutePath());
         
         }
     
@@ -751,7 +765,7 @@ public class Claves extends javax.swing.JFrame {
     {
     
         //Valida si se completaron los campos de texto y arroja mensaje de confirmación
-        if(this.PathArchivoDescifrar.getText().isEmpty()  || this.PathClavePriv.getText().isEmpty() || this.PathArchivoDescifrado.getText().isEmpty())
+        if(this.pathArchivoDescifrar.getText().isEmpty()  || this.pathClavePriv.getText().isEmpty() || this.pathArchivoDescifrado.getText().isEmpty())
             {
    
               
