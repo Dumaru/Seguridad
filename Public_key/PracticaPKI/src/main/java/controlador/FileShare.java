@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package controlador;
 
 import java.io.FileInputStream;
@@ -66,10 +67,9 @@ public class FileShare {
     /**
      * Crea las dos claves de RSA estan son, la privada y publica utilizando con
      * un tamaño de 1024 bits
-     *
-     * @param pathBaseClaves
-     * @param nombrePriv
-     * @param nombrePub
+     * @param pathBaseClaves directorio en donde se guardaran las claves
+     * @param nombrePriv nombre de la clave privada
+     * @param nombrePub nombre de la clave publica
      * @return un arreglo con los paths en donde se guardaron las claves, en
      * donde el elemento en la posicion 0 es la clave privada y en de la
      * posicion 2 la clave publica.
@@ -104,10 +104,9 @@ public class FileShare {
      * Guarda los archivos de clave privada y publica usando la libreria de
      * Bouncy Castle y en especifico la siguiente clase
      * https://www.bouncycastle.org/docs/pkixdocs1.5on/org/bouncycastle/openssl/jcajce/JcaPEMWriter.html
-     *
-     * @param parClaves
-     * @param nombrePriv
-     * @param nombrePub
+     * @param parClaves objeto KeyPair que se obtuvo despues de generar el par de claves
+     * @param nombrePriv nombre de la clave privada
+     * @param nombrePub nombre de la clave publica
      * @throws IOException
      * @throws OperatorCreationException
      */
@@ -133,7 +132,7 @@ public class FileShare {
     /**
      * Lee un archivo en el que se escribio una clave y devuelve la clave
      *
-     * @param pathClave
+     * @param pathClave path del archivo que contiene una clave
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -167,7 +166,7 @@ public class FileShare {
 
     /**
      * Lee un archivo y retorna la secuencia de bytes de este
-     * @param pathArchivo
+     * @param pathArchivo path del archivo a leer
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -184,9 +183,9 @@ public class FileShare {
     /**
      * Cifra un archivo con la clave publica y lo guarda en el directorio de salida
      * Informacion:https://docs.oracle.com/javase/7/docs/api/javax/crypto/Cipher.html
-     * @param pathSalidaCifrado
-     * @param pathArchivoCifrar
-     * @param pathClavePublica
+     * @param pathSalidaCifrado path de salida para el archivo cifrado
+     * @param pathArchivoCifrar path del archivo que se desea cifrar
+     * @param pathClavePublica path del alchivo con la clave publica
      * @return
      * @throws NoSuchAlgorithmException
      * @throws NoSuchPaddingException
@@ -218,9 +217,9 @@ public class FileShare {
     /**
      * Descifra un archivo cifrado con la clave privada y escribe el archivo
      * descifrado en el directorio de salida
-     * @param pathArchivoSalida
-     * @param pathArchivoCifrado
-     * @param pathClavePrivada
+     * @param pathArchivoSalida  path donde se guardara el archivo descifrado
+     * @param pathArchivoCifrado path del archivo cifrada
+     * @param pathClavePrivada path del archivo con la clave privada
      * @return
      * @throws NoSuchAlgorithmException
      * @throws IOException
@@ -258,7 +257,7 @@ public class FileShare {
      * Retorna un BigInteger menor que el valor n fuente:
      * https://stackoverflow.com/questions/2290057/how-to-generate-a-random-biginteger-value-in-java
      *
-     * @param n
+     * @param n el limite para generar el valor 
      * @return a BigInteger value
      */
     public BigInteger nextRandomBigInteger(BigInteger n) {
@@ -273,8 +272,8 @@ public class FileShare {
     /**
      * Calcula el maximo comun divisor de dos valores BigInteger
      *
-     * @param a
-     * @param b
+     * @param a un BigInteger para comparar su gcd con b 
+     * @param b un BigInteger para comparar su gcd con a
      * @return a BigInteger value
      */
     private static BigInteger gcd(BigInteger a, BigInteger b) {
