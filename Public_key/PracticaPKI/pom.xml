@@ -34,7 +34,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        Vista.Claves
+                                        vista.Claves
                                     </mainClass>
                                 </manifest>
                             </archive>

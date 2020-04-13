@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package Vista;
 
 import controlador.FileShare;
@@ -672,7 +673,6 @@ public class Claves extends javax.swing.JFrame {
 
     /**
      * Selecciona la carpeta donde desea almacenar el archivo cifrado
-     *
      * @param
      * @return
      * @throws IOException

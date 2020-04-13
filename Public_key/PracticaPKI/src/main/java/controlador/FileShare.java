@@ -133,7 +133,7 @@ public class FileShare {
      * Lee un archivo en el que se escribio una clave y devuelve la clave
      *
      * @param pathClave path del archivo que contiene una clave
-     * @return
+     * @return la clave Key contenida en un archivo pem
      * @throws FileNotFoundException
      * @throws IOException
      * @throws NoSuchAlgorithmException
@@ -167,7 +167,7 @@ public class FileShare {
     /**
      * Lee un archivo y retorna la secuencia de bytes de este
      * @param pathArchivo path del archivo a leer
-     * @return
+     * @return un arreglo de bytes del contenido de un archivo
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -186,7 +186,7 @@ public class FileShare {
      * @param pathSalidaCifrado path de salida para el archivo cifrado
      * @param pathArchivoCifrar path del archivo que se desea cifrar
      * @param pathClavePublica path del alchivo con la clave publica
-     * @return
+     * @return un valor String con el valor del path del archivo cifrado
      * @throws NoSuchAlgorithmException
      * @throws NoSuchPaddingException
      * @throws IOException
@@ -220,7 +220,7 @@ public class FileShare {
      * @param pathArchivoSalida  path donde se guardara el archivo descifrado
      * @param pathArchivoCifrado path del archivo cifrada
      * @param pathClavePrivada path del archivo con la clave privada
-     * @return
+     * @return un valor String con el path del archivo descifrado
      * @throws NoSuchAlgorithmException
      * @throws IOException
      * @throws InvalidKeyException
@@ -254,47 +254,12 @@ public class FileShare {
     }
 
     /**
-     * Retorna un BigInteger menor que el valor n fuente:
-     * https://stackoverflow.com/questions/2290057/how-to-generate-a-random-biginteger-value-in-java
-     *
-     * @param n el limite para generar el valor 
-     * @return a BigInteger value
-     */
-    public BigInteger nextRandomBigInteger(BigInteger n) {
-        Random rand = new Random();
-        BigInteger result = new BigInteger(n.bitLength(), rand);
-        while (result.compareTo(n) >= 0) {
-            result = new BigInteger(n.bitLength(), rand);
-        }
-        return result;
-    }
-
-    /**
-     * Calcula el maximo comun divisor de dos valores BigInteger
-     *
-     * @param a un BigInteger para comparar su gcd con b 
-     * @param b un BigInteger para comparar su gcd con a
-     * @return a BigInteger value
-     */
-    private static BigInteger gcd(BigInteger a, BigInteger b) {
-        BigInteger t;
-        while (b.compareTo(BigInteger.ZERO) != 0) {
-            t = a;
-            a = b;
-            b = t.mod(b);
-        }
-        return a;
-    }
-
-    /**
      * Metodo prueba de clase
      * @param args 
      */
     public static void main(String[] args) {
 
         FileShare fileShare = new FileShare();
-        System.out.println(FileShare.gcd(BigInteger.valueOf(7), BigInteger.valueOf(120)));
-
         //String[] parClaves = fileShare.crearClaves("C:\\claves", "miclave", "miclave");
         //Key claveRsa = fileShare.leerClave("C:\\claves\\publica.pub");
         /*
