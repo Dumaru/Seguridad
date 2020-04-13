@@ -19,10 +19,39 @@
         </dependency>
 
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>
+                                        Vista.Claves
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
     <name>Proyecto practica infraestructura de clave publica</name>
+    
     <description>Proyecto practica infraestructura de clave publica para la clase de seguridad informatica
-2020-1.
-Nombres:
-* Robinson Muñoz
-* Sergio Vega</description>
+        2020-1.
+        Nombres:
+        * Robinson Muñoz
+        * Sergio Vega</description>
 </project>
